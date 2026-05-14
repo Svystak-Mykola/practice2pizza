@@ -1,0 +1,274 @@
+
+.root {
+    -fx-background-color: #f7f8fb;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.scroll-bar:vertical .thumb { -fx-background-color: #ccc; }
+
+.tab-pane { -fx-background-color: #f7f8fb; }
+.tab-content-area { -fx-background-color: #f7f8fb; }
+.content-root { -fx-background-color: #f7f8fb; }
+.content-scroll { -fx-background-color: #f7f8fb; -fx-background: #f7f8fb; }
+
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e6e8ef;
+}
+.logo-text { -fx-text-fill: #111111; }
+.logo-sub { -fx-text-fill: #bbb; }
+.nav-button { -fx-text-fill: #888888; }
+.nav-button:hover { -fx-text-fill: #333333; -fx-background-color: #f0f0f0; }
+.nav-button-active {
+    -fx-background-color: #fff8f3;
+    -fx-text-fill: #ff7a00;
+    -fx-border-color: #ff7a00;
+}
+.nav-separator { -fx-background-color: #e8e8e8; }
+.cart-badge { -fx-text-fill: #111111; }
+.logout-button { -fx-text-fill: #aaaaaa; }
+.logout-button:hover { -fx-text-fill: #ff3b30; -fx-background-color: #fff0f0; }
+
+.page-header { -fx-background-color: #f7f8fb; }
+.page-title { -fx-text-fill: #111111; }
+.page-subtitle { -fx-text-fill: #999999; }
+
+.search-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-text-fill: #111111;
+    -fx-prompt-text-fill: #bbb;
+}
+.search-bar:focused { -fx-border-color: #ff7a00; }
+.category-chip {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #888888;
+    -fx-border-color: #e0e0e0;
+}
+.category-chip:hover { -fx-text-fill: #333; -fx-border-color: #ccc; }
+.category-chip-active {
+    -fx-background-color: #fff8f3;
+    -fx-text-fill: #ff7a00;
+    -fx-border-color: #ff7a00;
+}
+
+.pizza-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e7eaf0;
+    -fx-effect: dropshadow(gaussian, rgba(31,35,44,0.08), 18, 0.18, 0, 4);
+}
+.pizza-card:hover {
+    -fx-border-color: #ff7a00;
+    -fx-background-color: #fffaf6;
+}
+.pizza-img-placeholder { -fx-background-color: #eef1f6; }
+.pizza-card-name { -fx-text-fill: #111111; }
+.pizza-card-category { -fx-text-fill: #aaaaaa; }
+.pizza-card-price { -fx-text-fill: #ff7a00; }
+.add-to-cart-btn {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #888888;
+    -fx-border-color: #ebebeb;
+}
+.add-to-cart-btn:hover { -fx-background-color: #ff7a00; -fx-text-fill: white; }
+
+.modal-overlay { -fx-background-color: rgba(0,0,0,0.5); }
+.modal-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+}
+.modal-title { -fx-text-fill: #111111; }
+.modal-subtitle { -fx-text-fill: #999999; }
+.size-button {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-text-fill: #555555;
+}
+.size-button:hover { -fx-border-color: #ff7a00; -fx-background-color: #fff8f3; }
+.size-button-selected {
+    -fx-background-color: #fff8f3;
+    -fx-border-color: #ff7a00;
+    -fx-text-fill: #ff7a00;
+}
+.size-label { -fx-text-fill: #999999; }
+.modal-cancel-btn { -fx-text-fill: #888888; }
+.modal-cancel-btn:hover { -fx-text-fill: #111111; }
+
+.cart-item-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e7eaf0;
+    -fx-effect: dropshadow(gaussian, rgba(31,35,44,0.06), 12, 0.16, 0, 3);
+}
+.cart-item-photo { -fx-background-color: #eef1f6; }
+.cart-item-name { -fx-text-fill: #111111; }
+.cart-item-details { -fx-text-fill: #aaaaaa; }
+.cart-item-price { -fx-text-fill: #ff7a00; }
+.cart-remove-btn {
+    -fx-background-color: #fff0f0;
+    -fx-text-fill: #ffaaaa;
+}
+.cart-remove-btn:hover { -fx-background-color: #ff3b30; -fx-text-fill: white; }
+.qty-btn {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #888888;
+}
+.qty-btn:hover { -fx-background-color: #e0e0e0; -fx-text-fill: #333333; }
+.qty-label { -fx-text-fill: #111111; }
+.cart-total-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e8e8e8;
+}
+.cart-total-label { -fx-text-fill: #111111; }
+.cart-total-amount { -fx-text-fill: #ff7a00; }
+.toggle-label { -fx-text-fill: #999999; }
+.order-type-btn {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #888888;
+    -fx-border-color: #e0e0e0;
+}
+.order-type-btn:hover { -fx-border-color: #ccc; -fx-text-fill: #666; }
+.order-type-btn-active {
+    -fx-background-color: #fff8f3;
+    -fx-text-fill: #ff7a00;
+    -fx-border-color: #ff7a00;
+}
+.table-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #111111;
+    -fx-prompt-text-fill: #bbb;
+    -fx-border-color: #e0e0e0;
+}
+.table-field:focused { -fx-border-color: #ff7a00; }
+.summary-panel {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e6e8ef;
+}
+.side-panel-title { -fx-text-fill: #9aa1ad; }
+.summary-muted { -fx-text-fill: #6b7280; }
+.clear-cart-btn { -fx-text-fill: #8a93a3; }
+.clear-cart-btn:hover { -fx-text-fill: #ff3b30; }
+.checkout-success {
+    -fx-text-fill: #1f7a3a;
+    -fx-background-color: #edf9f0;
+    -fx-border-color: #b8e4c4;
+}
+
+.orders-list-panel { -fx-background-color: #f7f8fb; }
+.receipt-panel {
+    -fx-background-color: #f7f8fb;
+    -fx-border-color: #e6e8ef;
+}
+.order-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ebebeb;
+}
+.order-card:hover { -fx-border-color: #d0d0d0; }
+.order-card-selected { -fx-border-color: #ff7a00; -fx-background-color: #fffaf6; }
+.order-id { -fx-text-fill: #bbbbbb; }
+.order-date { -fx-text-fill: #aaaaaa; }
+.order-amount { -fx-text-fill: #ff7a00; }
+.order-status-accepted {
+    -fx-background-color: #edf7ed;
+    -fx-text-fill: #2e7d32;
+}
+.order-status-pending {
+    -fx-background-color: #fff8e1;
+    -fx-text-fill: #e65100;
+}
+.receipt-box {
+    -fx-background-color: #fafafa;
+    -fx-border-color: #ebebeb;
+}
+.receipt-title { -fx-text-fill: #ff7a00; }
+.receipt-text { -fx-text-fill: #666666; }
+.receipt-line { -fx-background-color: #eeeeee; }
+.receipt-total-label { -fx-text-fill: #111111; }
+
+.settings-section { -fx-text-fill: #aaaaaa; }
+.settings-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ebebeb;
+}
+.settings-label { -fx-text-fill: #111111; }
+.settings-desc { -fx-text-fill: #aaaaaa; }
+.theme-btn {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #888888;
+    -fx-border-color: #e0e0e0;
+    -fx-min-width: 116;
+    -fx-pref-width: 116;
+    -fx-max-width: 116;
+    -fx-min-height: 44;
+    -fx-pref-height: 44;
+    -fx-max-height: 44;
+    -fx-alignment: CENTER;
+}
+.theme-btn:hover { -fx-border-color: #ccc; -fx-text-fill: #555; }
+.theme-btn-active {
+    -fx-background-color: #fff8f3;
+    -fx-text-fill: #ff7a00;
+    -fx-border-color: #ff7a00;
+    -fx-min-width: 116;
+    -fx-pref-width: 116;
+    -fx-max-width: 116;
+    -fx-min-height: 44;
+    -fx-pref-height: 44;
+    -fx-max-height: 44;
+    -fx-alignment: CENTER;
+}
+.persist-btn {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #777777;
+    -fx-border-color: #e0e0e0;
+}
+.persist-btn:hover {
+    -fx-border-color: #ccc;
+    -fx-text-fill: #555555;
+}
+.persist-btn-active {
+    -fx-background-color: #fff8f3;
+    -fx-text-fill: #ff7a00;
+    -fx-border-color: #ff7a00;
+}
+
+.avatar-circle {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #e0e0e0;
+}
+.avatar-circle:hover { -fx-border-color: #ff7a00; }
+.avatar-hint { -fx-text-fill: #bbbbbb; }
+.profile-name { -fx-text-fill: #111111; }
+.profile-email { -fx-text-fill: #aaaaaa; }
+.profile-field-label { -fx-text-fill: #999999; }
+.profile-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #111111;
+    -fx-prompt-text-fill: #cccccc;
+    -fx-border-color: #e0e0e0;
+}
+.profile-field:focused { -fx-border-color: #ff7a00; }
+.danger-btn {
+    -fx-border-color: #ffcccc;
+}
+.danger-btn:hover { -fx-background-color: #fff0f0; }
+.danger-section { -fx-text-fill: #c81e1e; }
+.divider { -fx-background-color: #eeeeee; }
+
+.label { -fx-text-fill: #111111; }
+.check-box { -fx-text-fill: #111111; }
+.radio-button { -fx-text-fill: #111111; }
+
+.empty-title { -fx-text-fill: #cccccc; }
+.empty-desc { -fx-text-fill: #aaaaaa; }
+.size-price { -fx-text-fill: #ff7a00; }
+.selected-size-label { -fx-text-fill: #777777; }
+.toast {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ff7a00;
+    -fx-effect: dropshadow(gaussian, rgba(31,35,44,0.16), 16, 0.2, 0, 3);
+}
+.toast-icon { -fx-text-fill: #ff7a00; }
+.toast-text { -fx-text-fill: #111111; }
+.toast-error { -fx-border-color: #ff3b30; }
+.toast-error .toast-icon { -fx-text-fill: #ff3b30; }

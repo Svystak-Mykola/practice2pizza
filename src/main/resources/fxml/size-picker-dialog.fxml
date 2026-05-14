@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.SizePickerController"
+  styleClass="modal-overlay"
+  onMouseClicked="#handleOverlayClick">
+
+  <VBox styleClass="modal-box" alignment="TOP_LEFT" spacing="24"
+    onMouseClicked="#consumeClick">
+
+    <VBox spacing="6">
+      <Label fx:id="pizzaNameLabel" text="Піца" styleClass="modal-title"/>
+      <Label text="Оберіть розмір" styleClass="modal-subtitle"/>
+    </VBox>
+
+    <HBox spacing="16" alignment="CENTER">
+      <VBox spacing="8" alignment="CENTER">
+        <Button fx:id="btnS" text="S" onAction="#selectS"
+          styleClass="size-button"/>
+        <Label text="Маленька 25 см" styleClass="size-label" alignment="CENTER" textAlignment="CENTER"/>
+        <Label fx:id="priceS" text="" styleClass="size-price"/>
+      </VBox>
+      <VBox spacing="8" alignment="CENTER">
+        <Button fx:id="btnM" text="M" onAction="#selectM"
+          styleClass="size-button, size-button-selected"/>
+        <Label text="Середня 30 см" styleClass="size-label" alignment="CENTER" textAlignment="CENTER"/>
+        <Label fx:id="priceM" text="" styleClass="size-price"/>
+      </VBox>
+      <VBox spacing="8" alignment="CENTER">
+        <Button fx:id="btnL" text="L" onAction="#selectL"
+          styleClass="size-button"/>
+        <Label text="Велика 35 см" styleClass="size-label" alignment="CENTER" textAlignment="CENTER"/>
+        <Label fx:id="priceL" text="" styleClass="size-price"/>
+      </VBox>
+    </HBox>
+
+    <HBox styleClass="cart-total-box" alignment="CENTER_LEFT">
+      <VBox spacing="4" HBox.hgrow="ALWAYS">
+        <Label fx:id="selectedSizeLabel" text="Розмір M" styleClass="selected-size-label"/>
+        <Label fx:id="selectedPriceLabel" text="0 грн" styleClass="cart-total-amount"/>
+      </VBox>
+    </HBox>
+
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+      <Button text="Скасувати" onAction="#handleCancel" styleClass="modal-cancel-btn"/>
+      <Button text="Додати в кошик →" onAction="#handleConfirm" styleClass="modal-confirm-btn"/>
+    </HBox>
+  </VBox>
+</StackPane>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.CartController"
+  styleClass="content-root" spacing="0">
+
+  <VBox HBox.hgrow="ALWAYS" spacing="0">
+
+    <VBox styleClass="page-header" spacing="4">
+      <Label text="КОШИК" styleClass="page-title"/>
+      <Label fx:id="cartSubtitle" text="0 позицій" styleClass="page-subtitle"/>
+    </VBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER"
+      style="-fx-padding: 0 0 20 0;">
+      <VBox fx:id="cartItemsBox" spacing="12" styleClass="cart-items-box"/>
+    </ScrollPane>
+
+    <VBox fx:id="emptyState" alignment="CENTER" VBox.vgrow="ALWAYS" spacing="12"
+      style="-fx-padding: 80 0;" visible="true">
+      <Label text="🛒" styleClass="empty-icon"/>
+      <Label text="КОШИК ПОРОЖНІЙ" styleClass="empty-title"/>
+      <Label text="Обери піцу в меню і вертайся" styleClass="empty-desc"/>
+    </VBox>
+  </VBox>
+
+  <VBox prefWidth="320" styleClass="summary-panel"
+    spacing="20">
+
+    <Label text="ЗАМОВЛЕННЯ" styleClass="side-panel-title"/>
+
+    <VBox spacing="8">
+      <Label text="ТИП" styleClass="toggle-label"/>
+      <HBox spacing="8">
+        <Button fx:id="btnDineIn" text="🏠 В залі" onAction="#setDineIn"
+          styleClass="order-type-btn, order-type-btn-active"/>
+        <Button fx:id="btnTakeaway" text="↗ Із собою" onAction="#setTakeaway"
+          styleClass="order-type-btn"/>
+      </HBox>
+    </VBox>
+
+    <VBox fx:id="tableSection" spacing="8">
+      <Label text="СТОЛИК" styleClass="toggle-label"/>
+      <TextField fx:id="tableField" promptText="Номер столика" styleClass="table-field"/>
+    </VBox>
+
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <Pane styleClass="divider" maxWidth="Infinity"/>
+
+    <VBox spacing="8">
+      <HBox>
+        <Label text="Позицій:" styleClass="summary-muted"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="itemCountLabel" text="0" styleClass="summary-muted"/>
+      </HBox>
+    </VBox>
+
+    <HBox alignment="CENTER_LEFT">
+      <Label text="СУМА" styleClass="cart-total-label"/>
+      <Region HBox.hgrow="ALWAYS"/>
+      <Label fx:id="totalLabel" text="0 ₴" styleClass="cart-total-amount"/>
+    </HBox>
+
+    <Button text="ОФОРМИТИ ЗАМОВЛЕННЯ →" onAction="#handleCheckout"
+      maxWidth="Infinity" styleClass="checkout-btn"/>
+
+    <Button text="Очистити кошик" onAction="#handleClear"
+      maxWidth="Infinity" styleClass="clear-cart-btn"/>
+  </VBox>
+</HBox>

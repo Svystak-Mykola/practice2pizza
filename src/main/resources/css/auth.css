@@ -1,0 +1,74 @@
+
+.root {
+    -fx-background-color: #050505;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+.auth-root {
+    -fx-background-color: #050505;
+}
+.auth-muted {
+    -fx-text-fill: #555555;
+    -fx-font-size: 13px;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #0d0d0d;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #2e2e2e;
+    -fx-border-color: #1a1a1a;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #ff7a00;
+    -fx-background-color: #0f0f0f;
+}
+
+.primary-button {
+    -fx-background-color: #ff7a00;
+    -fx-text-fill: black;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-padding: 13;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #ff9533;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+.auth-logo {
+    -fx-font-size: 40px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ffffff;
+}
+
+.auth-subtitle {
+    -fx-text-fill: #dddddd;
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+}
+
+.hyperlink {
+    -fx-text-fill: #ff7a00;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #ffffff;
+}

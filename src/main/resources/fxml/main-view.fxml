@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.MainController">
+
+  <left>
+    <VBox prefWidth="240" styleClass="sidebar" spacing="4">
+
+      <VBox spacing="2" style="-fx-padding: 0 0 32 8;">
+        <Label text="UrPizza" styleClass="logo-text"/>
+        <Label text="PIZZA SYSTEM" styleClass="logo-sub"/>
+      </VBox>
+
+      <Button fx:id="btnMenu" text="🍕  Меню" onAction="#showMenu"
+        maxWidth="Infinity" styleClass="nav-button, nav-button-active"/>
+      <Button fx:id="btnCart" text="🛒  Кошик" onAction="#showCart"
+        maxWidth="Infinity" styleClass="nav-button"/>
+      <Button fx:id="btnOrders" text="📦  Замовлення" onAction="#showOrders"
+        maxWidth="Infinity" styleClass="nav-button"/>
+      <Button fx:id="btnProfile" text="👤  Профіль" onAction="#showProfile"
+        maxWidth="Infinity" styleClass="nav-button"/>
+      <Button fx:id="btnSettings" text="⚙  Налаштування" onAction="#showSettings"
+        maxWidth="Infinity" styleClass="nav-button"/>
+
+      <Region VBox.vgrow="ALWAYS"/>
+
+      <Label fx:id="cartBadge" text="0 товарів у кошику" styleClass="cart-badge"/>
+
+      <Pane styleClass="nav-separator" maxWidth="Infinity"/>
+
+      <Button text="🚪  Вийти" onAction="#handleLogout"
+        maxWidth="Infinity" styleClass="logout-button"/>
+    </VBox>
+  </left>
+
+  <center>
+    <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab>
+          <AnchorPane fx:id="menuTab"/>
+        </Tab>
+        <Tab>
+          <AnchorPane fx:id="cartTab"/>
+        </Tab>
+        <Tab>
+          <AnchorPane fx:id="ordersTab"/>
+        </Tab>
+        <Tab>
+          <AnchorPane fx:id="profileTab"/>
+        </Tab>
+        <Tab>
+          <AnchorPane fx:id="settingsTab"/>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </center>
+</BorderPane>

@@ -1,0 +1,46 @@
+.root {
+    -fx-background-color: #f7f8fb;
+}
+
+.auth-root {
+    -fx-background-color: #f7f8fb;
+}
+
+.auth-logo {
+    -fx-text-fill: #111827;
+}
+
+.auth-subtitle {
+    -fx-text-fill: #6b7280;
+}
+
+.auth-muted {
+    -fx-text-fill: #6b7280;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #111827;
+    -fx-prompt-text-fill: #9aa1ad;
+    -fx-border-color: #d9dde7;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-background-color: #ffffff;
+}
+
+.label {
+    -fx-text-fill: #111827;
+}
+
+.auth-logo {
+    -fx-text-fill: #111827;
+}
+
+.auth-subtitle {
+    -fx-text-fill: #374151;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #111827;
+}

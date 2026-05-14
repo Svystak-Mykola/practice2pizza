@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.ProfileController"
+  fitToWidth="true" hbarPolicy="NEVER"
+  styleClass="content-scroll">
+
+  <VBox styleClass="content-root" spacing="0">
+
+    <VBox styleClass="page-header" spacing="4">
+      <Label text="ПРОФІЛЬ" styleClass="page-title"/>
+      <Label text="Ваші особисті дані" styleClass="page-subtitle"/>
+    </VBox>
+
+    <HBox styleClass="profile-content" spacing="40" alignment="TOP_LEFT">
+
+      <VBox spacing="16" alignment="CENTER" prefWidth="200">
+        <StackPane styleClass="avatar-circle" onMouseClicked="#handleAvatarClick">
+          <ImageView fx:id="avatarImage" fitWidth="100" fitHeight="100"
+            preserveRatio="false" visible="true"/>
+        </StackPane>
+        <Label text="Натисни щоб змінити" styleClass="avatar-hint"/>
+        <Label fx:id="profileNameLabel" text="Ім'я" styleClass="profile-name"/>
+        <Label fx:id="profileEmailLabel" text="email@email.com" styleClass="profile-email"/>
+      </VBox>
+
+      <VBox HBox.hgrow="ALWAYS" spacing="24">
+
+        <VBox styleClass="settings-card" spacing="18">
+          <Label text="ОСОБИСТІ ДАНІ" styleClass="settings-section"/>
+
+          <HBox spacing="20">
+            <VBox HBox.hgrow="ALWAYS" spacing="6">
+              <Label text="ІМ'Я" styleClass="profile-field-label"/>
+              <TextField fx:id="nameField" styleClass="profile-field"/>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" spacing="6">
+              <Label text="EMAIL" styleClass="profile-field-label"/>
+              <TextField fx:id="emailField" styleClass="profile-field"/>
+            </VBox>
+          </HBox>
+
+          <Button text="Зберегти зміни" onAction="#handleSaveInfo"
+            styleClass="save-btn"/>
+          <Label fx:id="infoStatusLabel" text="" wrapText="true" style="-fx-font-size: 13px;"/>
+        </VBox>
+
+        <VBox styleClass="settings-card" spacing="18">
+          <Label text="ЗМІНА ПАРОЛЯ" styleClass="settings-section"/>
+
+          <VBox spacing="6">
+            <Label text="ПОТОЧНИЙ ПАРОЛЬ" styleClass="profile-field-label"/>
+            <PasswordField fx:id="currentPassField" styleClass="profile-field"/>
+          </VBox>
+          <HBox spacing="20">
+            <VBox HBox.hgrow="ALWAYS" spacing="6">
+              <Label text="НОВИЙ ПАРОЛЬ" styleClass="profile-field-label"/>
+              <PasswordField fx:id="newPassField" styleClass="profile-field"/>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" spacing="6">
+              <Label text="ПІДТВЕРДЖЕННЯ" styleClass="profile-field-label"/>
+              <PasswordField fx:id="confirmPassField" styleClass="profile-field"/>
+            </VBox>
+          </HBox>
+
+          <Button text="Змінити пароль" onAction="#handleChangePassword"
+            styleClass="save-btn"/>
+          <Label fx:id="passStatusLabel" text="" wrapText="true" style="-fx-font-size: 13px;"/>
+        </VBox>
+
+        <VBox styleClass="settings-card" spacing="14">
+          <Label text="НЕБЕЗПЕЧНА ЗОНА" styleClass="settings-section danger-section"/>
+          <HBox alignment="CENTER_LEFT" spacing="16">
+            <VBox HBox.hgrow="ALWAYS" spacing="4">
+              <Label text="Вийти з акаунту" styleClass="settings-label"/>
+              <Label text="Завершити поточну сесію" styleClass="settings-desc"/>
+            </VBox>
+            <Button text="Вийти" onAction="#handleLogout" styleClass="danger-btn"/>
+          </HBox>
+        </VBox>
+      </VBox>
+    </HBox>
+  </VBox>
+</ScrollPane>

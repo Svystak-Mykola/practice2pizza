@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="pizzeria.presentation.controller.LoginController"
+  styleClass="auth-root" prefWidth="800" prefHeight="600">
+
+  <VBox alignment="CENTER" spacing="20" maxWidth="350">
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+    <Label text="UrPizza" styleClass="auth-logo"
+      style="-fx-font-size: 48px; -fx-font-weight: 900;"/>
+    <Label text="Вхід в систему" styleClass="auth-subtitle"
+      style="-fx-font-size: 20px; -fx-font-weight: 700;"/>
+
+    <VBox spacing="10">
+      <TextField fx:id="emailField" promptText="Email" styleClass="text-field"/>
+      <PasswordField fx:id="passwordField" promptText="Пароль" styleClass="text-field"/>
+    </VBox>
+
+    <Button text="УВІЙТИ" onAction="#handleLogin" maxWidth="Infinity" styleClass="primary-button"/>
+
+    <HBox alignment="CENTER" spacing="10">
+      <Label text="Немає аккаунту?" styleClass="auth-muted"/>
+      <Hyperlink text="Створити" onAction="#openRegister"/>
+    </HBox>
+
+    <Label fx:id="statusLabel" wrapText="true" alignment="CENTER"/>
+  </VBox>
+</StackPane>

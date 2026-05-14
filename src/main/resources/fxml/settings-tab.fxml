@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.SettingsController"
+  fitToWidth="true" hbarPolicy="NEVER"
+  styleClass="content-scroll">
+
+  <VBox styleClass="content-root" spacing="0">
+
+    <VBox styleClass="page-header" spacing="4">
+      <Label text="НАЛАШТУВАННЯ" styleClass="page-title"/>
+      <Label text="Персоналізуй свій досвід" styleClass="page-subtitle"/>
+    </VBox>
+
+    <VBox styleClass="settings-content" spacing="24" maxWidth="680">
+
+      <VBox styleClass="settings-card" spacing="20">
+        <Label text="ЗОВНІШНІЙ ВИГЛЯД" styleClass="settings-section"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="16">
+          <VBox HBox.hgrow="ALWAYS" spacing="4">
+            <Label text="Тема" styleClass="settings-label"/>
+            <Label text="Обери темну або світлу тему інтерфейсу" styleClass="settings-desc"/>
+          </VBox>
+          <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="btnDark" text="🌑 Темна" onAction="#setDarkTheme"
+              styleClass="theme-btn, theme-btn-active"/>
+            <Button fx:id="btnLight" text="☀ Світла" onAction="#setLightTheme"
+              styleClass="theme-btn"/>
+          </HBox>
+        </HBox>
+      </VBox>
+
+      <VBox styleClass="settings-card" spacing="20">
+        <Label text="КОШИК" styleClass="settings-section"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="16">
+          <VBox HBox.hgrow="ALWAYS" spacing="4">
+            <Label text="Зберігати кошик між сесіями" styleClass="settings-label"/>
+            <Label text="Товари залишаться після виходу" styleClass="settings-desc"/>
+          </VBox>
+          <Button fx:id="persistCartButton" text="Вимкнено" onAction="#handlePersistCartToggle"
+            styleClass="persist-btn"/>
+        </HBox>
+
+        <Pane styleClass="divider" maxWidth="Infinity"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="16">
+          <VBox HBox.hgrow="ALWAYS" spacing="4">
+            <Label text="Очистити кошик" styleClass="settings-label"/>
+            <Label text="Видалити всі товари з поточного кошика" styleClass="settings-desc"/>
+          </VBox>
+          <Button text="Очистити" onAction="#handleClearCart" styleClass="danger-btn"/>
+        </HBox>
+      </VBox>
+
+    </VBox>
+  </VBox>
+</ScrollPane>

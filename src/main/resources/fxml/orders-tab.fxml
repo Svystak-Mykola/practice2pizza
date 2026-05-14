@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pizzeria.presentation.controller.OrdersController"
+      styleClass="content-root" spacing="0">
+
+    <VBox prefWidth="420" styleClass="orders-list-panel" spacing="0">
+        <VBox styleClass="page-header" spacing="4">
+            <Label text="ЗАМОВЛЕННЯ" styleClass="page-title"/>
+            <Label fx:id="ordersSubtitle" text="Ваша історія" styleClass="page-subtitle"/>
+        </VBox>
+
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER">
+            <VBox fx:id="ordersBox" spacing="10" styleClass="orders-box"/>
+        </ScrollPane>
+
+        <VBox fx:id="ordersEmpty" alignment="CENTER" VBox.vgrow="ALWAYS" spacing="12"
+              style="-fx-padding: 60 0;" visible="false">
+            <Label text="📦" styleClass="empty-icon"/>
+            <Label text="ЗАМОВЛЕНЬ НЕ БУЛО" styleClass="empty-title"/>
+            <Label text="Оформи перше замовлення в кошику" styleClass="empty-desc"/>
+        </VBox>
+    </VBox>
+
+    <VBox HBox.hgrow="ALWAYS"
+          styleClass="receipt-panel"
+          spacing="20">
+
+        <Label text="ЧЕК" styleClass="side-panel-title"/>
+
+        <VBox fx:id="receiptBox" styleClass="receipt-box" VBox.vgrow="ALWAYS" spacing="12">
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="8">
+                <Label text="🧾" style="-fx-font-size: 36px;"/>
+                <Label text="Обери замовлення зліва" styleClass="empty-desc"/>
+            </VBox>
+        </VBox>
+    </VBox>
+</HBox>
