@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.KitchenController"
+  styleClass="content-root" spacing="0">
+  <VBox styleClass="page-header" spacing="4">
+    <Label text="КУХНЯ" styleClass="page-title"/>
+    <Label fx:id="subtitleLabel" text="Нові замовлення" styleClass="page-subtitle"/>
+  </VBox>
+  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER">
+    <VBox fx:id="ordersBox" spacing="12" styleClass="dashboard-list"/>
+  </ScrollPane>
+</VBox>

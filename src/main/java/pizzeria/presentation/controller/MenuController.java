@@ -114,7 +114,15 @@ public class MenuController {
     imgArea.getStyleClass().add("pizza-img-placeholder");
 
     String imgFile = getPizzaImageFile(pizza.getName());
-    if (imgFile != null) {
+    Image customImg = AdminController.loadCustomImage(pizza.getName(), 220, 140);
+    if (customImg != null) {
+      ImageView iv = new ImageView(customImg);
+      iv.setFitWidth(220);
+      iv.setFitHeight(140);
+      iv.setPreserveRatio(false);
+      iv.setSmooth(true);
+      imgArea.getChildren().add(iv);
+    } else if (imgFile != null) {
       try {
         var url = getClass().getResource("/images/" + imgFile);
         if (url != null) {
@@ -142,7 +150,27 @@ public class MenuController {
     priceLabel.getStyleClass().add("pizza-card-price");
     priceLabel.setStyle("-fx-padding: 6 0 0 0;");
 
-    body.getChildren().addAll(nameLabel, priceLabel);
+    Label ingredientsLabel = new Label("Інгредієнти: " +
+        (pizza.getIngredients() == null ? "" : pizza.getIngredients()));
+    ingredientsLabel.getStyleClass().add("pizza-card-ingredients");
+    ingredientsLabel.setWrapText(true);
+    ingredientsLabel.setVisible(false);
+    ingredientsLabel.setManaged(false);
+
+    Button moreBtn = new Button("Більше");
+    moreBtn.getStyleClass().add("pizza-more-btn");
+    moreBtn.setOnAction(e -> {
+      boolean expanded = !ingredientsLabel.isVisible();
+      ingredientsLabel.setVisible(expanded);
+      ingredientsLabel.setManaged(expanded);
+      card.getStyleClass().remove("pizza-card-expanded");
+      if (expanded) {
+        card.getStyleClass().add("pizza-card-expanded");
+      }
+      e.consume();
+    });
+
+    body.getChildren().addAll(nameLabel, priceLabel, moreBtn, ingredientsLabel);
 
     Button addBtn = new Button("Обрати розмір →");
     addBtn.getStyleClass().add("add-to-cart-btn");
@@ -156,7 +184,7 @@ public class MenuController {
   private void openSizePicker(Pizza pizza) {
     try {
       FXMLLoader loader = new FXMLLoader(
-          getClass().getResource("/fxml/size-picker-dialog.fxml"));
+          getClass().getResource("/fxml/user/size-picker-dialog.fxml"));
       Node modal = loader.load();
 
       SizePickerController ctrl = loader.getController();

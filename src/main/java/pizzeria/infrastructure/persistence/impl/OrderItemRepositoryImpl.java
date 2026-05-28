@@ -1,6 +1,7 @@
 package pizzeria.infrastructure.persistence.impl;
 
 import pizzeria.domain.entities.OrderItem;
+import pizzeria.domain.enums.PizzaSize;
 import pizzeria.infrastructure.persistence.contract.OrderItemRepository;
 import pizzeria.util.ConnectionPool;
 
@@ -21,7 +22,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
       stmt.setString(1, item.getId().toString());
       stmt.setString(2, item.getOrderId().toString());
       stmt.setString(3, item.getPizzaId().toString());
-      stmt.setString(4, item.getSize());
+      stmt.setString(4, item.getSizeName());
       stmt.setInt(5, item.getQuantity());
       stmt.setDouble(6, item.getPriceAtTime());
 
@@ -46,7 +47,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
               UUID.fromString(rs.getString("id")),
               UUID.fromString(rs.getString("order_id")),
               UUID.fromString(rs.getString("pizza_id")),
-              rs.getString("size"),
+              PizzaSize.fromString(rs.getString("size")),
               rs.getInt("quantity"),
               rs.getDouble("price_at_time")
           ));

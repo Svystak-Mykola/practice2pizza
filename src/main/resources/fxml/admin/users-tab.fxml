@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.UsersController"
+  fitToWidth="true" hbarPolicy="NEVER"
+  styleClass="content-scroll">
+  <VBox styleClass="content-root" spacing="0">
+    <VBox styleClass="page-header" spacing="4">
+      <Label text="КОРИСТУВАЧІ" styleClass="page-title"/>
+      <Label fx:id="subtitleLabel" text="Всі зареєстровані користувачі" styleClass="page-subtitle"/>
+    </VBox>
+    <VBox spacing="16" styleClass="dashboard-list">
+      <VBox fx:id="usersBox" spacing="8"/>
+    </VBox>
+  </VBox>
+</ScrollPane>

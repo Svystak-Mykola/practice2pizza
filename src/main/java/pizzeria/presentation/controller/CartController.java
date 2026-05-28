@@ -2,6 +2,7 @@ package pizzeria.presentation.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,6 +13,8 @@ import pizzeria.application.contract.OrderService;
 import pizzeria.application.impl.OrderServiceImpl;
 import pizzeria.domain.entities.OrderItem;
 import pizzeria.domain.entities.Pizza;
+import pizzeria.domain.enums.OrderType;
+import pizzeria.domain.enums.PizzaSize;
 import pizzeria.infrastructure.persistence.impl.OrderItemRepositoryImpl;
 import pizzeria.infrastructure.persistence.impl.OrderRepositoryImpl;
 import pizzeria.infrastructure.session.UserSession;
@@ -29,18 +32,52 @@ public class CartController {
   @FXML private Label itemCountLabel;
   @FXML private Label cartSubtitle;
   @FXML private TextField tableField;
-  @FXML private Button btnDineIn, btnTakeaway;
+  @FXML private TextField addressField;
+  @FXML private TextField phoneField;
+  @FXML private javafx.scene.control.TextArea commentField;
+  @FXML private ChoiceBox<String> orderTypeChoice;
   @FXML private VBox tableSection;
+  @FXML private VBox deliverySection;
 
   private static CartController instance;
-  private String orderType = "DINE_IN";
+  private OrderType orderType = OrderType.DINE_IN;
 
   public static CartController getInstance() { return instance; }
 
   @FXML
   public void initialize() {
     instance = this;
+    orderTypeChoice.getItems().addAll("В залі", "Із собою", "Доставка");
+    orderTypeChoice.setValue("В залі");
+    orderTypeChoice.setOnAction(e -> onOrderTypeChanged());
     refresh();
+  }
+
+  private void onOrderTypeChanged() {
+    String selected = orderTypeChoice.getValue();
+    switch (selected) {
+      case "В залі" -> {
+        orderType = OrderType.DINE_IN;
+        tableSection.setVisible(true);
+        tableSection.setManaged(true);
+        deliverySection.setVisible(false);
+        deliverySection.setManaged(false);
+      }
+      case "Із собою" -> {
+        orderType = OrderType.TAKEAWAY;
+        tableSection.setVisible(false);
+        tableSection.setManaged(false);
+        deliverySection.setVisible(false);
+        deliverySection.setManaged(false);
+      }
+      case "Доставка" -> {
+        orderType = OrderType.DELIVERY;
+        tableSection.setVisible(false);
+        tableSection.setManaged(false);
+        deliverySection.setVisible(true);
+        deliverySection.setManaged(true);
+      }
+    }
   }
 
   public void refresh() {
@@ -103,7 +140,7 @@ public class CartController {
 
     HBox qtyBox = new HBox(8);
     qtyBox.setAlignment(javafx.geometry.Pos.CENTER);
-    Button minus = new Button("−");
+    Button minus = new Button("\u2212");
     minus.getStyleClass().add("qty-btn");
     Label qtyLabel = new Label(String.valueOf(qty));
     qtyLabel.getStyleClass().add("qty-label");
@@ -123,7 +160,7 @@ public class CartController {
     Label price = new Label(String.format("%.0f грн", pizza.getPrice() * qty));
     price.getStyleClass().add("cart-item-price");
 
-    Button remove = new Button("✕");
+    Button remove = new Button("\u2715");
     remove.getStyleClass().add("cart-remove-btn");
     remove.setOnAction(e -> {
       for (int i = 0; i < qty; i++) MainController.getCartService().removePizza(pizza);
@@ -134,29 +171,16 @@ public class CartController {
     return card;
   }
 
-  @FXML private void setDineIn() {
-    orderType = "DINE_IN";
-    tableSection.setVisible(true);
-    tableSection.setManaged(true);
-    btnDineIn.getStyleClass().add("order-type-btn-active");
-    btnTakeaway.getStyleClass().remove("order-type-btn-active");
-  }
-
-  @FXML private void setTakeaway() {
-    orderType = "TAKEAWAY";
-    tableSection.setVisible(false);
-    tableSection.setManaged(false);
-    btnTakeaway.getStyleClass().add("order-type-btn-active");
-    btnDineIn.getStyleClass().remove("order-type-btn-active");
-  }
-
   @FXML
   private void handleCheckout() {
     CartService cart = MainController.getCartService();
     if (cart.getItems().isEmpty()) return;
 
     Integer tableNumber = null;
-    if (orderType.equals("DINE_IN")) {
+    String deliveryAddress = null;
+    String phone = null;
+    String comment = null;
+    if (orderType == OrderType.DINE_IN) {
       String tableText = tableField.getText().trim();
       if (tableText.isEmpty()) {
         MainController.showToast("Вкажи номер столика", false);
@@ -170,6 +194,26 @@ public class CartController {
         }
       } catch (NumberFormatException ignored) {
         MainController.showToast("Номер столика має бути числом", false);
+        return;
+      }
+    } else if (orderType == OrderType.DELIVERY) {
+      deliveryAddress = addressField.getText().trim();
+      phone = phoneField.getText().trim();
+      comment = commentField.getText().trim();
+      if (deliveryAddress.isBlank()) {
+        MainController.showToast("Вкажи адресу доставки", false);
+        return;
+      }
+      if (!deliveryAddress.toLowerCase().startsWith("вул.")) {
+        MainController.showToast("Адреса має починатися з \"вул.\"", false);
+        return;
+      }
+      if (phone.isBlank()) {
+        MainController.showToast("Вкажи телефон", false);
+        return;
+      }
+      if (!phone.matches("^\\+?\\d{10,13}$")) {
+        MainController.showToast("Телефон має містити 10-13 цифр", false);
         return;
       }
     }
@@ -190,10 +234,13 @@ public class CartController {
         new OrderRepositoryImpl(), new OrderItemRepositoryImpl());
     orderService.createOrder(
         UserSession.getCurrentUser().getId(),
-        items, tableNumber, orderType);
+        items, tableNumber, orderType, deliveryAddress, phone, comment);
 
     cart.clear();
     tableField.clear();
+    addressField.clear();
+    phoneField.clear();
+    commentField.clear();
     refresh();
     OrdersController.refreshOrders();
     MainController.showToast("Додано до \"Замовлення\"");
@@ -205,9 +252,9 @@ public class CartController {
     refresh();
   }
 
-  private String extractSize(String pizzaName) {
-    if (pizzaName.contains("(S)")) return "S";
-    if (pizzaName.contains("(L)")) return "L";
-    return "M";
+  private PizzaSize extractSize(String pizzaName) {
+    if (pizzaName.contains("(S)")) return PizzaSize.S;
+    if (pizzaName.contains("(L)")) return PizzaSize.L;
+    return PizzaSize.M;
   }
 }

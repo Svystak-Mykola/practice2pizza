@@ -1,0 +1,7 @@
+ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'USER';
+
+ALTER TABLE pizzas ADD COLUMN ingredients TEXT;
+
+ALTER TABLE orders ADD COLUMN delivery_address TEXT;
+ALTER TABLE orders ADD COLUMN phone TEXT;
+ALTER TABLE orders ADD COLUMN comment TEXT;

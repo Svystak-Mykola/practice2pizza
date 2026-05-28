@@ -42,7 +42,7 @@
 
 
 
-**Infrastructure**: Реалізація репозиторіїв, робота з SQLite та механізми сесій.
+**Infrastructure**: Реалізація репозиторіїв, робота з PostgreSQL.
 
 
 
@@ -58,7 +58,7 @@
 **GUI Framework**: JavaFX
 
 
-**Database**: SQLite
+**Database**: PostgreSQL
 
 
 **Build Tool**: Maven

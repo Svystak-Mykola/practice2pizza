@@ -84,6 +84,8 @@
     <filter-actions connection-id="e38329d1-162b-42fa-8f57-a62c394e555e" dataset="pizzeria.flyway_schema_history" active-filter-id="" />
     <filter-actions connection-id="29972449-2e26-464c-a6c7-791509c76feb" dataset="main.users" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="29972449-2e26-464c-a6c7-791509c76feb" dataset="main.pizzas" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="29972449-2e26-464c-a6c7-791509c76feb" dataset="main.order_items" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="29972449-2e26-464c-a6c7-791509c76feb" dataset="main.orders" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />

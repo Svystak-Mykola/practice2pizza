@@ -66,6 +66,7 @@
 .pizza-card-name { -fx-text-fill: #111111; }
 .pizza-card-category { -fx-text-fill: #aaaaaa; }
 .pizza-card-price { -fx-text-fill: #ff7a00; }
+.pizza-card-ingredients { -fx-text-fill: #777777; }
 .add-to-cart-btn {
     -fx-background-color: #f5f5f5;
     -fx-text-fill: #888888;
@@ -121,7 +122,18 @@
 }
 .cart-total-label { -fx-text-fill: #111111; }
 .cart-total-amount { -fx-text-fill: #ff7a00; }
+.checkout-btn {
+    -fx-background-color: #ff7a00;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.checkout-btn:hover { -fx-background-color: #ff9533; }
 .toggle-label { -fx-text-fill: #999999; }
+.photo-upload-area { -fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-min-height: 100; -fx-alignment: center; }
 .order-type-btn {
     -fx-background-color: #f5f5f5;
     -fx-text-fill: #888888;
@@ -140,6 +152,30 @@
     -fx-border-color: #e0e0e0;
 }
 .table-field:focused { -fx-border-color: #ff7a00; }
+.comment-field {
+    -fx-control-inner-background: #ffffff;
+    -fx-text-fill: #111111;
+    -fx-prompt-text-fill: #bbb;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+}
+
+.choice-box {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #111111;
+    -fx-mark-color: #ff7a00;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-padding: 4 8;
+}
+.choice-box .label { -fx-text-fill: #111111; -fx-font-weight: 600; }
+.choice-box .context-menu { -fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8; }
+.choice-box .menu-item:focused { -fx-background-color: #fff8f3; }
+.choice-box .menu-item .label { -fx-text-fill: #111111; }
+.choice-box .menu-item:focused .label { -fx-text-fill: #ff7a00; }
 .summary-panel {
     -fx-background-color: #ffffff;
     -fx-border-color: #e6e8ef;
@@ -155,6 +191,11 @@
 }
 
 .orders-list-panel { -fx-background-color: #f7f8fb; }
+.stats-pill {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e7eaf0;
+    -fx-text-fill: #111111;
+}
 .receipt-panel {
     -fx-background-color: #f7f8fb;
     -fx-border-color: #e6e8ef;
@@ -240,6 +281,7 @@
 .avatar-hint { -fx-text-fill: #bbbbbb; }
 .profile-name { -fx-text-fill: #111111; }
 .profile-email { -fx-text-fill: #aaaaaa; }
+.profile-role { -fx-text-fill: #ff7a00; -fx-font-size: 14px; -fx-font-weight: 700; -fx-padding: 4 0 0 0; }
 .profile-field-label { -fx-text-fill: #999999; }
 .profile-field {
     -fx-background-color: #ffffff;

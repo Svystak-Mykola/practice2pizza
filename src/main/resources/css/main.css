@@ -55,7 +55,7 @@
 .nav-separator { -fx-background-color: #141414; -fx-pref-height: 1; }
 .cart-badge {
     -fx-text-fill: #ffffff;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-font-weight: 700;
     -fx-padding: 0 8 12 8;
 }
@@ -140,7 +140,6 @@
     -fx-max-width: 220;
     -fx-pref-width: 220;
     -fx-min-height: 290;
-    -fx-max-height: 290;
     -fx-pref-height: 290;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, #000, 12, 0.3, 0, 3);
@@ -148,6 +147,10 @@
 .pizza-card:hover {
     -fx-border-color: #ff7a00;
     -fx-background-color: #0f0f0f;
+}
+.pizza-card-expanded {
+    -fx-min-height: 345;
+    -fx-pref-height: 345;
 }
 .pizza-img-placeholder {
     -fx-background-color: #131313;
@@ -173,12 +176,27 @@
     -fx-font-size: 16px;
     -fx-font-weight: 700;
 }
+.pizza-card-ingredients {
+    -fx-text-fill: #999;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 0 0 0;
+}
+.pizza-more-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff7a00;
+    -fx-font-size: 12px;
+    -fx-font-weight: 800;
+    -fx-padding: 2 0 4 0;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+}
 .add-to-cart-btn {
     -fx-background-color: #171717;
     -fx-text-fill: #888;
     -fx-font-size: 12px;
     -fx-font-weight: 700;
-    -fx-padding: 8 0;
+    -fx-padding: 12 0;
     -fx-background-radius: 0 0 14 14;
     -fx-cursor: hand;
     -fx-border-color: #1e1e1e;
@@ -239,7 +257,7 @@
     -fx-text-fill: #777;
     -fx-font-size: 13px;
     -fx-font-weight: 600;
-    -fx-padding: 8 16;
+    -fx-padding: 8 10;
     -fx-cursor: hand;
     -fx-border-color: transparent;
 }
@@ -304,12 +322,13 @@
     -fx-text-fill: black;
     -fx-font-weight: 700;
     -fx-font-size: 14px;
-    -fx-padding: 14 0;
+    -fx-padding: 10 20;
     -fx-background-radius: 10;
     -fx-cursor: hand;
 }
 .checkout-btn:hover { -fx-background-color: #ff9533; }
 .toggle-label { -fx-text-fill: #999; -fx-font-size: 12px; -fx-font-weight: 600; }
+.photo-upload-area { -fx-background-color: #0d0d0d; -fx-background-radius: 8; -fx-border-color: #1e1e1e; -fx-border-radius: 8; -fx-min-height: 100; -fx-alignment: center; }
 .order-type-btn {
     -fx-background-color: #111;
     -fx-text-fill: #888;
@@ -320,8 +339,8 @@
     -fx-border-color: #1e1e1e;
     -fx-border-radius: 8;
     -fx-cursor: hand;
-    -fx-min-width: 122;
-    -fx-pref-width: 122;
+    -fx-min-width: 86;
+    -fx-pref-width: 86;
     -fx-alignment: CENTER;
 }
 .order-type-btn:hover { -fx-border-color: #333; -fx-text-fill: #888; }
@@ -342,6 +361,30 @@
     -fx-font-weight: 600;
 }
 .table-field:focused { -fx-border-color: #ff7a00; }
+.comment-field {
+    -fx-control-inner-background: #0e0e0e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #555;
+    -fx-background-radius: 8;
+    -fx-border-color: #1e1e1e;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+}
+
+.choice-box {
+    -fx-background-color: #0e0e0e;
+    -fx-text-fill: white;
+    -fx-mark-color: #ff7a00;
+    -fx-background-radius: 8;
+    -fx-border-color: #1e1e1e;
+    -fx-border-radius: 8;
+    -fx-padding: 4 8;
+}
+.choice-box .label { -fx-text-fill: white; -fx-font-weight: 600; }
+.choice-box .context-menu { -fx-background-color: #0e0e0e; -fx-border-color: #1e1e1e; -fx-border-radius: 8; -fx-background-radius: 8; }
+.choice-box .menu-item:focused { -fx-background-color: #1a0d00; }
+.choice-box .menu-item .label { -fx-text-fill: white; }
+.choice-box .menu-item:focused .label { -fx-text-fill: #ff7a00; }
 .cart-items-box { -fx-padding: 0 32 32 50; }
 .summary-panel {
     -fx-background-color: #080808;
@@ -352,7 +395,7 @@
 .side-panel-title {
     -fx-font-family: "Arial Black", "Arial", sans-serif;
     -fx-font-size: 14px;
-    -fx-text-fill: #333;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 .summary-muted { -fx-text-fill: #555; -fx-font-size: 13px; }
@@ -392,6 +435,17 @@
 .order-status-pending { -fx-background-color: #1a150a; -fx-text-fill: #ff9800; -fx-background-radius: 5; -fx-padding: 3 10; -fx-font-size: 12px; -fx-font-weight: 600; }
 .orders-list-panel { -fx-background-color: #060606; }
 .orders-box { -fx-padding: 0 20 32 50; }
+.dashboard-list { -fx-padding: 0 50 40 50; }
+.stats-pill {
+    -fx-background-color: #111;
+    -fx-border-color: #1e1e1e;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 12 16;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
 .receipt-panel {
     -fx-background-color: #060606;
     -fx-border-color: #0f0f0f;
@@ -499,6 +553,7 @@
 .profile-content { -fx-padding: 0 50 50 50; }
 .profile-name { -fx-font-size: 26px; -fx-text-fill: white; -fx-font-weight: bold; }
 .profile-email { -fx-text-fill: #888; -fx-font-size: 12px; -fx-font-weight: 600; }
+.profile-role { -fx-text-fill: #ff7a00; -fx-font-size: 14px; -fx-font-weight: 700; -fx-padding: 4 0 0 0; }
 .profile-field-label { -fx-text-fill: #999; -fx-font-size: 12px; -fx-font-weight: 700; }
 .profile-field {
     -fx-background-color: #0d0d0d;

@@ -1,10 +1,10 @@
 package pizzeria.application.impl;
 
-import org.mindrot.jbcrypt.BCrypt;
 import pizzeria.application.contract.AuthService;
 import pizzeria.domain.entities.User;
 import pizzeria.infrastructure.persistence.contract.UserRepository;
 import pizzeria.infrastructure.persistence.impl.UserRepositoryImpl;
+import pizzeria.util.PasswordUtil;
 
 public class AuthServiceImpl implements AuthService {
   private final UserRepository userRepository;
@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     User user = userRepository.findByEmail(normalizedEmail)
         .orElseThrow(() -> new RuntimeException("Користувача з такою електронною поштою не знайдено."));
 
-    if (!passwordMatches(rawPassword, user.getPassword())) {
+    if (!PasswordUtil.matches(rawPassword, user.getPassword())) {
       throw new RuntimeException("Введено неправильний пароль.");
     }
     return user;
@@ -41,20 +41,9 @@ public class AuthServiceImpl implements AuthService {
       throw new RuntimeException("Дана електронна пошта вже використовується.");
     }
 
-    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+    String hashedPassword = PasswordUtil.hash(password);
     User newUser = new User(java.util.UUID.randomUUID(), name.trim(), normalizedEmail, hashedPassword);
     userRepository.save(newUser);
   }
 
-  private boolean passwordMatches(String rawPassword, String storedPassword) {
-    if (storedPassword == null) return false;
-    try {
-      if (storedPassword.startsWith("$2")) {
-        return BCrypt.checkpw(rawPassword, storedPassword);
-      }
-    } catch (IllegalArgumentException ignored) {
-      return false;
-    }
-    return storedPassword.equals(rawPassword);
-  }
 }

@@ -34,7 +34,7 @@
         </HBox>
       </VBox>
 
-      <VBox styleClass="settings-card" spacing="20">
+      <VBox fx:id="cartSettingsCard" styleClass="settings-card" spacing="20">
         <Label text="КОШИК" styleClass="settings-section"/>
 
         <HBox alignment="CENTER_LEFT" spacing="16">

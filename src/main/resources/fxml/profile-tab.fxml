@@ -26,6 +26,7 @@
         <Label text="Натисни щоб змінити" styleClass="avatar-hint"/>
         <Label fx:id="profileNameLabel" text="Ім'я" styleClass="profile-name"/>
         <Label fx:id="profileEmailLabel" text="email@email.com" styleClass="profile-email"/>
+        <Label fx:id="profileRoleLabel" text="" styleClass="profile-role"/>
       </VBox>
 
       <VBox HBox.hgrow="ALWAYS" spacing="24">

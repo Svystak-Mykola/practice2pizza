@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: pizzeria-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pizzeria_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: H27735311
+      TZ: Europe/Kyiv
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

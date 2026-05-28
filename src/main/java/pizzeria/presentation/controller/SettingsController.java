@@ -4,20 +4,29 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import pizzeria.Main;
 import pizzeria.application.impl.CartServiceImpl;
+import pizzeria.domain.enums.Role;
+import pizzeria.infrastructure.session.UserSession;
 
 public class SettingsController {
 
   @FXML private Button btnDark;
   @FXML private Button btnLight;
   @FXML private Button persistCartButton;
+  @FXML private VBox cartSettingsCard;
 
   private static final String DARK_CSS  = "/css/main.css";
   private static final String LIGHT_CSS = "/css/main-light.css";
 
   @FXML
   public void initialize() {
+    Role role = UserSession.getCurrentUser() == null ? Role.USER : UserSession.getCurrentUser().getRole();
+    if (role != Role.USER && cartSettingsCard != null) {
+      cartSettingsCard.setVisible(false);
+      cartSettingsCard.setManaged(false);
+    }
     Platform.runLater(this::syncThemeButtons);
     Platform.runLater(this::syncPersistButton);
   }
@@ -71,23 +80,17 @@ public class SettingsController {
 
   @FXML
   private void handlePersistCartToggle() {
-    boolean enabled = !CartServiceImpl.isPersistEnabled();
-    CartServiceImpl.setPersistEnabled(enabled);
-    if (enabled && MainController.getCartService() instanceof CartServiceImpl cartService) {
+    if (MainController.getCartService() instanceof CartServiceImpl cartService) {
       cartService.persistCurrentCart();
     }
     syncPersistButton();
-    MainController.showToast(enabled
-        ? "Збереження кошика увімкнено"
-        : "Збереження кошика вимкнено");
+    MainController.showToast("Кошик збережено в базі");
   }
 
   private void syncPersistButton() {
     if (persistCartButton == null) return;
-    boolean enabled = CartServiceImpl.isPersistEnabled();
-    persistCartButton.setText(enabled ? "Увімкнено" : "Вимкнено");
-    persistCartButton.getStyleClass().remove("persist-btn-active");
-    if (enabled) {
+    persistCartButton.setText("Увімкнено");
+    if (!persistCartButton.getStyleClass().contains("persist-btn-active")) {
       persistCartButton.getStyleClass().add("persist-btn-active");
     }
   }

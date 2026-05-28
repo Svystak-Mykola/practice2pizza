@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.UpdateMenuController"
+  fitToWidth="true" hbarPolicy="NEVER"
+  styleClass="content-scroll">
+  <VBox styleClass="content-root" spacing="0">
+    <VBox styleClass="page-header" spacing="4">
+      <Label text="ОНОВИТИ МЕНЮ" styleClass="page-title"/>
+      <Label text="Додавай, редагуй та видаляй піци" styleClass="page-subtitle"/>
+    </VBox>
+    <VBox spacing="16" styleClass="dashboard-list">
+    <VBox spacing="12" styleClass="settings-card">
+      <Label text="ДОДАТИ ПІЦУ" styleClass="settings-label" style="-fx-font-size: 16px;"/>
+      <TextField fx:id="addNameField" promptText="Назва піци" styleClass="table-field"/>
+      <TextField fx:id="addPriceField" promptText="Ціна" styleClass="table-field"/>
+      <ChoiceBox fx:id="addCategoryChoice" maxWidth="Infinity" styleClass="table-field"/>
+      <TextField fx:id="addIngredientsField" promptText="Інгредієнти" styleClass="table-field"/>
+      <VBox spacing="6">
+        <Label text="Фото піци" styleClass="toggle-label"/>
+        <StackPane styleClass="photo-upload-area" onMouseClicked="#handleAddSelectImage">
+          <Label fx:id="addImageLabel" text="Натисни щоб обрати фото" styleClass="empty-desc"/>
+          <ImageView fx:id="addImageView" fitWidth="120" fitHeight="80" preserveRatio="false"
+            visible="false" pickOnBounds="true"/>
+        </StackPane>
+      </VBox>
+      <HBox spacing="12">
+        <Button text="Додати" onAction="#handleAddPizza" styleClass="checkout-btn" HBox.hgrow="ALWAYS"/>
+        <Button text="Скасувати" onAction="#handleAddCancel" styleClass="theme-btn"/>
+      </HBox>
+    </VBox>
+    <VBox spacing="12" styleClass="settings-card">
+      <Label text="РЕДАГУВАТИ ПІЦУ" styleClass="settings-label" style="-fx-font-size: 16px;"/>
+      <ChoiceBox fx:id="editPizzaChoice" maxWidth="Infinity" styleClass="table-field"/>
+      <TextField fx:id="editNameField" promptText="Назва піци" styleClass="table-field"/>
+      <TextField fx:id="editPriceField" promptText="Ціна" styleClass="table-field"/>
+      <ChoiceBox fx:id="editCategoryChoice" maxWidth="Infinity" styleClass="table-field"/>
+      <TextField fx:id="editIngredientsField" promptText="Інгредієнти" styleClass="table-field"/>
+      <VBox spacing="6">
+        <Label text="Фото піци" styleClass="toggle-label"/>
+        <StackPane styleClass="photo-upload-area" onMouseClicked="#handleEditSelectImage">
+          <Label fx:id="editImageLabel" text="Натисни щоб обрати фото" styleClass="empty-desc"/>
+          <ImageView fx:id="editImageView" fitWidth="120" fitHeight="80" preserveRatio="false"
+            visible="false" pickOnBounds="true"/>
+        </StackPane>
+      </VBox>
+      <HBox spacing="12">
+        <Button text="Зберегти" onAction="#handleEditPizza" styleClass="checkout-btn" HBox.hgrow="ALWAYS"/>
+        <Button text="Видалити" onAction="#handleDeletePizza" styleClass="danger-btn"/>
+      </HBox>
+    </VBox>
+    </VBox>
+  </VBox>
+</ScrollPane>

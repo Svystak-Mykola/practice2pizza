@@ -33,18 +33,20 @@
     <Label text="ЗАМОВЛЕННЯ" styleClass="side-panel-title"/>
 
     <VBox spacing="8">
-      <Label text="ТИП" styleClass="toggle-label"/>
-      <HBox spacing="8">
-        <Button fx:id="btnDineIn" text="🏠 В залі" onAction="#setDineIn"
-          styleClass="order-type-btn, order-type-btn-active"/>
-        <Button fx:id="btnTakeaway" text="↗ Із собою" onAction="#setTakeaway"
-          styleClass="order-type-btn"/>
-      </HBox>
+      <Label text="ТИП ЗАМОВЛЕННЯ" styleClass="toggle-label"/>
+      <ChoiceBox fx:id="orderTypeChoice" maxWidth="Infinity" styleClass="table-field"/>
     </VBox>
 
     <VBox fx:id="tableSection" spacing="8">
       <Label text="СТОЛИК" styleClass="toggle-label"/>
       <TextField fx:id="tableField" promptText="Номер столика" styleClass="table-field"/>
+    </VBox>
+
+    <VBox fx:id="deliverySection" spacing="8" visible="false" managed="false">
+      <Label text="ДОСТАВКА" styleClass="toggle-label"/>
+      <TextField fx:id="addressField" promptText="Адреса" styleClass="table-field"/>
+      <TextField fx:id="phoneField" promptText="Телефон" styleClass="table-field"/>
+      <TextArea fx:id="commentField" promptText="Коментар" prefRowCount="3" wrapText="true" styleClass="comment-field"/>
     </VBox>
 
     <Region VBox.vgrow="ALWAYS"/>

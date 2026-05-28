@@ -7,13 +7,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import org.mindrot.jbcrypt.BCrypt;
 import pizzeria.Main;
 import pizzeria.domain.entities.User;
 import pizzeria.infrastructure.persistence.contract.UserRepository;
 import pizzeria.infrastructure.persistence.impl.UserRepositoryImpl;
-import pizzeria.infrastructure.session.SessionStorage;
 import pizzeria.infrastructure.session.UserSession;
+import pizzeria.util.PasswordUtil;
 
 import java.io.File;
 
@@ -22,6 +21,7 @@ public class ProfileController {
   @FXML private ImageView avatarImage;
   @FXML private Label profileNameLabel;
   @FXML private Label profileEmailLabel;
+  @FXML private Label profileRoleLabel;
   @FXML private TextField nameField;
   @FXML private TextField emailField;
   @FXML private PasswordField currentPassField;
@@ -39,6 +39,7 @@ public class ProfileController {
 
     profileNameLabel.setText(user.getName());
     profileEmailLabel.setText(user.getEmail());
+    profileRoleLabel.setText(user.getRole().displayName());
     nameField.setText(user.getName());
     emailField.setText(user.getEmail());
     setupAvatarView();
@@ -90,13 +91,13 @@ public class ProfileController {
   private void handleSaveInfo() {
     String name = nameField.getText().trim();
     String email = emailField.getText().trim();
+    User user = UserSession.getCurrentUser();
 
-    if (name.isEmpty() || email.isEmpty()) {
+    if (name.isEmpty() || email.isEmpty() || user == null) {
       showStatus(infoStatusLabel, "Заповни всі поля", false);
       return;
     }
 
-    User user = UserSession.getCurrentUser();
     user.setName(name);
     user.setEmail(email);
     userRepository.save(user);
@@ -113,7 +114,11 @@ public class ProfileController {
     String newPass = newPassField.getText();
     String confirmPass = confirmPassField.getText();
 
-    if (!passwordMatches(currentPass, user.getPassword())) {
+    if (user == null) {
+      showStatus(passStatusLabel, "❌  Користувача не знайдено", false);
+      return;
+    }
+    if (!PasswordUtil.matches(currentPass, user.getPassword())) {
       showStatus(passStatusLabel, "❌  Поточний пароль невірний", false);
       return;
     }
@@ -126,7 +131,7 @@ public class ProfileController {
       return;
     }
 
-    user.setPassword(BCrypt.hashpw(newPass, BCrypt.gensalt()));
+    user.setPassword(PasswordUtil.hash(newPass));
     userRepository.save(user);
 
     currentPassField.clear();
@@ -138,11 +143,8 @@ public class ProfileController {
   @FXML
   private void handleLogout() {
     try {
-      SessionStorage.clear();
       UserSession.clear();
-      if (!pizzeria.application.impl.CartServiceImpl.isPersistEnabled()) {
-        MainController.getCartService().clear();
-      }
+      MainController.getCartService().clear();
       Main.setRoot("login-view", "UrPizza — Авторизація");
     } catch (Exception e) {
       e.printStackTrace();
@@ -155,15 +157,4 @@ public class ProfileController {
         + (success ? "#4CAF50" : "#ff3b30") + ";");
   }
 
-  private boolean passwordMatches(String rawPassword, String storedPassword) {
-    if (storedPassword == null) return false;
-    try {
-      if (storedPassword.startsWith("$2")) {
-        return BCrypt.checkpw(rawPassword, storedPassword);
-      }
-    } catch (IllegalArgumentException ignored) {
-      return false;
-    }
-    return storedPassword.equals(rawPassword);
-  }
 }

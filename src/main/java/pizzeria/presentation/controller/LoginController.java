@@ -6,7 +6,6 @@ import pizzeria.Main;
 import pizzeria.application.contract.AuthService;
 import pizzeria.application.impl.AuthServiceImpl;
 import pizzeria.domain.entities.User;
-import pizzeria.infrastructure.session.SessionStorage;
 import pizzeria.infrastructure.session.UserSession;
 
 import java.util.regex.Pattern;
@@ -41,8 +40,6 @@ public class LoginController {
     try {
       User user = authService.login(email, password);
       UserSession.setCurrentUser(user);
-
-      SessionStorage.save(user.getEmail());
 
       Main.setRoot("main-view", "UrPizza — Dashboard");
     } catch (Exception e) {

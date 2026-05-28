@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="pizzeria.presentation.controller.AdminController"
+  styleClass="content-root" spacing="0">
+  <VBox styleClass="page-header" spacing="4">
+    <Label text="АДМІН" styleClass="page-title"/>
+    <Label fx:id="subtitleLabel" text="Меню, статистика і всі замовлення" styleClass="page-subtitle"/>
+  </VBox>
+  <VBox spacing="16" styleClass="dashboard-list">
+    <HBox spacing="12">
+      <Label fx:id="ordersCountLabel" styleClass="stats-pill"/>
+      <Label fx:id="revenueLabel" styleClass="stats-pill"/>
+    </HBox>
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER">
+      <VBox fx:id="ordersBox" spacing="10"/>
+    </ScrollPane>
+  </VBox>
+</VBox>

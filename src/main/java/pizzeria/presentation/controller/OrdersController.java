@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.control.TextArea;
 import pizzeria.domain.entities.Order;
 import pizzeria.domain.entities.OrderItem;
+import pizzeria.domain.enums.OrderType;
 import pizzeria.infrastructure.persistence.contract.OrderItemRepository;
 import pizzeria.infrastructure.persistence.contract.OrderRepository;
 import pizzeria.infrastructure.persistence.impl.OrderItemRepositoryImpl;
@@ -15,7 +17,7 @@ import pizzeria.infrastructure.session.UserSession;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 public class OrdersController {
 
@@ -43,9 +45,7 @@ public class OrdersController {
 
   private void loadOrders() {
     UUID userId = UserSession.getCurrentUser().getId();
-    List<Order> orders = orderRepo.findAll().stream()
-        .filter(o -> o.getUserId().equals(userId))
-        .collect(Collectors.toList());
+    List<Order> orders = orderRepo.findByUserId(userId);
 
     ordersBox.getChildren().clear();
 
@@ -74,9 +74,9 @@ public class OrdersController {
     Label dateLabel = new Label(order.getCreatedAt().format(FMT));
     dateLabel.getStyleClass().add("order-date");
 
-    String typeText = "DINE_IN".equals(order.getOrderType()) ? "🍽 В залі" : "🥡 Із собою";
+    String typeText = order.getOrderType().displayName();
     if (order.getTableNumber() != null)
-      typeText += " · Стіл " + order.getTableNumber();
+      typeText += " Стіл " + order.getTableNumber();
     Label typeLabel = new Label(typeText);
     typeLabel.getStyleClass().add("order-date");
 
@@ -88,7 +88,7 @@ public class OrdersController {
     Label amount = new Label(String.format("%.0f грн", order.getTotalAmount()));
     amount.getStyleClass().add("order-amount");
 
-    Label status = new Label(order.getStatus());
+    Label status = new Label(order.getStatus().displayName());
     status.getStyleClass().add("order-status-accepted");
 
     right.getChildren().addAll(amount, status);
@@ -115,9 +115,11 @@ public class OrdersController {
     Label orderId = new Label("Замовлення: #" + order.getId().toString().substring(0, 8).toUpperCase());
     orderId.getStyleClass().add("receipt-text");
 
-    String typeStr = "DINE_IN".equals(order.getOrderType()) ? "В залі" : "Із собою";
+    String typeStr = order.getOrderType().displayName();
     Label type = new Label("Тип: " + typeStr);
     type.getStyleClass().add("receipt-text");
+
+    content.getChildren().addAll(title, date, orderId, type);
 
     if (order.getTableNumber() != null) {
       Label table = new Label("Столик: " + order.getTableNumber());
@@ -125,17 +127,35 @@ public class OrdersController {
       content.getChildren().add(table);
     }
 
+    if (OrderType.DELIVERY == order.getOrderType()) {
+      Label delivery = new Label("Доставка: " + order.getDeliveryAddress() + ", " + order.getPhone());
+      delivery.getStyleClass().add("receipt-text");
+      content.getChildren().add(delivery);
+    }
+
+    if (order.getComment() != null && !order.getComment().isBlank()) {
+      TextArea commentArea = new TextArea(order.getComment());
+      commentArea.setEditable(false);
+      commentArea.setPrefRowCount(3);
+      commentArea.setWrapText(true);
+      commentArea.setStyle("-fx-control-inner-background: #0d0d0d; -fx-text-fill: #e0e0e0; -fx-font-size: 12px; -fx-background-radius: 8; -fx-border-color: #1e1e1e; -fx-border-radius: 8; -fx-padding: 8;");
+      VBox commentBox = new VBox(4);
+      Label commentLabel = new Label("Коментар:");
+      commentLabel.getStyleClass().add("receipt-text");
+      commentLabel.setStyle("-fx-text-fill: #ff7a00; -fx-font-weight: 700;");
+      commentBox.getChildren().addAll(commentLabel, commentArea);
+      content.getChildren().add(commentBox);
+    }
+
     Pane line1 = new Pane();
     line1.getStyleClass().add("receipt-line");
     line1.setMaxWidth(Double.MAX_VALUE);
-
-    content.getChildren().addAll(title, date, orderId, type, line1);
+    content.getChildren().add(line1);
 
     for (OrderItem item : items) {
       HBox row = new HBox();
-      Label itemName = new Label(item.getSize() + "  ×" + item.getQuantity());
+      Label itemName = new Label(item.getSizeName() + "  x" + item.getQuantity());
       itemName.getStyleClass().add("receipt-text");
-      itemName.setStyle("-fx-text-fill: #666;");
 
       Region spacer = new Region();
       HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -160,7 +180,7 @@ public class OrdersController {
     totalAmt.setStyle("-fx-text-fill: #ff7a00; -fx-font-family: 'Bebas Neue'; -fx-font-size: 22px;");
     totalRow.getChildren().addAll(totalText, sp2, totalAmt);
 
-    Label statusLine = new Label("Статус: " + order.getStatus());
+    Label statusLine = new Label("Статус: " + order.getStatus().displayName());
     statusLine.getStyleClass().add("order-status-accepted");
 
     content.getChildren().addAll(line2, totalRow, statusLine);

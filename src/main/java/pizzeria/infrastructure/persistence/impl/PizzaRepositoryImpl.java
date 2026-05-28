@@ -12,7 +12,7 @@ public class PizzaRepositoryImpl implements PizzaRepository {
   @Override
   public List<Pizza> findAll() {
     List<Pizza> pizzas = new ArrayList<>();
-    String sql = "SELECT p.id, p.category_id, p.name, p.price, c.name as category_name " +
+    String sql = "SELECT p.id, p.category_id, p.name, p.price, p.ingredients, c.name as category_name " +
         "FROM pizzas p LEFT JOIN categories c ON p.category_id = c.id";
 
     try (Connection conn = ConnectionPool.getConnection();
@@ -32,7 +32,15 @@ public class PizzaRepositoryImpl implements PizzaRepository {
 
   @Override
   public void save(Pizza pizza) {
-    String sql = "INSERT INTO pizzas (id, category_id, name, price) VALUES (?, ?, ?, ?)";
+    String sql = """
+        INSERT INTO pizzas (id, category_id, name, price, ingredients)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+          category_id = excluded.category_id,
+          name = excluded.name,
+          price = excluded.price,
+          ingredients = excluded.ingredients
+        """;
 
     try (Connection conn = ConnectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,6 +49,7 @@ public class PizzaRepositoryImpl implements PizzaRepository {
       stmt.setString(2, pizza.getCategoryId().toString());
       stmt.setString(3, pizza.getName());
       stmt.setDouble(4, pizza.getPrice());
+      stmt.setString(5, pizza.getIngredients());
 
       stmt.executeUpdate();
 
@@ -51,7 +60,7 @@ public class PizzaRepositoryImpl implements PizzaRepository {
 
   @Override
   public Optional<Pizza> findById(UUID id) {
-    String sql = "SELECT p.id, p.category_id, p.name, p.price, c.name as category_name " +
+    String sql = "SELECT p.id, p.category_id, p.name, p.price, p.ingredients, c.name as category_name " +
         "FROM pizzas p LEFT JOIN categories c ON p.category_id = c.id WHERE p.id = ?";
 
     try (Connection conn = ConnectionPool.getConnection();
@@ -92,8 +101,17 @@ public class PizzaRepositoryImpl implements PizzaRepository {
         UUID.fromString(rs.getString("category_id")),
         rs.getString("category_name"),
         rs.getString("name"),
-        rs.getDouble("price")
+        rs.getDouble("price"),
+        readOptionalString(rs, "ingredients")
     );
     return pizza;
+  }
+
+  private String readOptionalString(ResultSet rs, String columnName) throws SQLException {
+    try {
+      return rs.getString(columnName);
+    } catch (SQLException ignored) {
+      return "";
+    }
   }
 }
