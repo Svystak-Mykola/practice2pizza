@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import pizzeria.util.DatabaseInitializer;
+import pizzeria.util.StaffAccountSeeder;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -24,6 +25,7 @@ public class Main extends Application {
     TimeZone.setDefault(TimeZone.getTimeZone("Europe/Kyiv"));
     primaryStage = stage;
     DatabaseInitializer.initialize();
+    StaffAccountSeeder.seed();
     setRoot("login-view", "UrPizza — Авторизація");
   }
 
