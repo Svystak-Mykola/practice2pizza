@@ -33,16 +33,24 @@ public class AuthServiceImpl implements AuthService {
 
   @Override
   public void register(String name, String email, String password) {
+    register(name, email, password, null);
+  }
+
+  public void register(String name, String email, String password, String phone) {
     String normalizedEmail = email == null ? "" : email.trim();
     if (name == null || name.trim().isBlank() || normalizedEmail.isBlank() || password == null || password.length() < 6) {
       throw new RuntimeException("Перевір ім'я, email і пароль.");
+    }
+    if (phone != null && !phone.isBlank() && !phone.matches("^\\+?\\d{10,13}$")) {
+      throw new RuntimeException("Телефон має містити 10-13 цифр.");
     }
     if (userRepository.findByEmail(normalizedEmail).isPresent()) {
       throw new RuntimeException("Дана електронна пошта вже використовується.");
     }
 
+    String normalizedPhone = phone == null || phone.isBlank() ? null : phone.trim();
     String hashedPassword = PasswordUtil.hash(password);
-    User newUser = new User(java.util.UUID.randomUUID(), name.trim(), normalizedEmail, hashedPassword);
+    User newUser = new User(java.util.UUID.randomUUID(), name.trim(), normalizedEmail, hashedPassword, null, normalizedPhone, pizzeria.domain.enums.Role.USER);
     userRepository.save(newUser);
   }
 

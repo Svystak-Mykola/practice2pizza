@@ -138,7 +138,7 @@ public class OrdersController {
       commentArea.setEditable(false);
       commentArea.setPrefRowCount(3);
       commentArea.setWrapText(true);
-      commentArea.setStyle("-fx-control-inner-background: #0d0d0d; -fx-text-fill: #e0e0e0; -fx-font-size: 12px; -fx-background-radius: 8; -fx-border-color: #1e1e1e; -fx-border-radius: 8; -fx-padding: 8;");
+      commentArea.getStyleClass().add("receipt-comment-field");
       VBox commentBox = new VBox(4);
       Label commentLabel = new Label("Коментар:");
       commentLabel.getStyleClass().add("receipt-text");
@@ -165,6 +165,10 @@ public class OrdersController {
 
       row.getChildren().addAll(itemName, spacer, itemPrice);
       content.getChildren().add(row);
+
+      Label pizzaDesc = new Label(item.getPizzaName() + " — " + item.getPizzaIngredients());
+      pizzaDesc.getStyleClass().add("receipt-ingredients");
+      content.getChildren().add(pizzaDesc);
     }
 
     Pane line2 = new Pane();

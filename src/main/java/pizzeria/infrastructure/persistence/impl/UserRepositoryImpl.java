@@ -50,13 +50,14 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public void save(User user) {
     String sql = """
-        INSERT INTO users (id, name, email, password, avatar_path, role)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO users (id, name, email, password, avatar_path, phone, role)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
           name = excluded.name,
           email = excluded.email,
           password = excluded.password,
           avatar_path = excluded.avatar_path,
+          phone = excluded.phone,
           role = excluded.role
         """;
     try (Connection conn = ConnectionPool.getConnection();
@@ -67,7 +68,8 @@ public class UserRepositoryImpl implements UserRepository {
       stmt.setString(3, user.getEmail());
       stmt.setString(4, user.getPassword());
       stmt.setString(5, user.getAvatarPath());
-      stmt.setString(6, user.getRoleName());
+      stmt.setString(6, user.getPhone());
+      stmt.setString(7, user.getRoleName());
 
       stmt.executeUpdate();
       System.out.println("Юзер збережений в БД: " + user.getEmail());
@@ -83,6 +85,7 @@ public class UserRepositoryImpl implements UserRepository {
         rs.getString("email"),
         rs.getString("password"),
         readOptionalString(rs, "avatar_path"),
+        readOptionalString(rs, "phone"),
         Role.fromString(readOptionalString(rs, "role", "USER"))
     );
   }

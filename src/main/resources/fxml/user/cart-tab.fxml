@@ -44,7 +44,8 @@
 
     <VBox fx:id="deliverySection" spacing="8" visible="false" managed="false">
       <Label text="ДОСТАВКА" styleClass="toggle-label"/>
-      <TextField fx:id="addressField" promptText="Адреса" styleClass="table-field"/>
+      <TextField fx:id="streetField" promptText="Вулиця (напр. вул. Грушевського)" styleClass="table-field"/>
+      <TextField fx:id="houseNumberField" promptText="Номер будинку" styleClass="table-field"/>
       <TextField fx:id="phoneField" promptText="Телефон" styleClass="table-field"/>
       <TextArea fx:id="commentField" promptText="Коментар" prefRowCount="3" wrapText="true" styleClass="comment-field"/>
     </VBox>

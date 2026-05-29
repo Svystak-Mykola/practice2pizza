@@ -58,6 +58,11 @@ public class CourierController {
       load();
       OrdersController.refreshOrders();
       AdminController.refreshDashboard();
+      if (status == OrderStatus.ON_THE_WAY) {
+        MainController.showToast("Замовлення #" + order.getId().toString().substring(0, 8).toUpperCase() + " в дорозі");
+      } else if (status == OrderStatus.DELIVERED) {
+        MainController.showToast("Замовлення #" + order.getId().toString().substring(0, 8).toUpperCase() + " доставлено");
+      }
     });
     return button;
   }

@@ -66,7 +66,7 @@
 .pizza-card-name { -fx-text-fill: #111111; }
 .pizza-card-category { -fx-text-fill: #aaaaaa; }
 .pizza-card-price { -fx-text-fill: #ff7a00; }
-.pizza-card-ingredients { -fx-text-fill: #777777; }
+.pizza-card-ingredients { -fx-text-fill: #111111; }
 .add-to-cart-btn {
     -fx-background-color: #f5f5f5;
     -fx-text-fill: #888888;
@@ -78,9 +78,12 @@
 .modal-box {
     -fx-background-color: #ffffff;
     -fx-border-color: #e0e0e0;
+    -fx-max-width: 400;
+    -fx-max-height: 360;
 }
 .modal-title { -fx-text-fill: #111111; }
 .modal-subtitle { -fx-text-fill: #999999; }
+.modal-ingredients { -fx-text-fill: #555555; }
 .size-button {
     -fx-background-color: #f5f5f5;
     -fx-border-color: #e0e0e0;
@@ -154,8 +157,24 @@
 .table-field:focused { -fx-border-color: #ff7a00; }
 .comment-field {
     -fx-control-inner-background: #ffffff;
+    -fx-background-color: #ffffff;
     -fx-text-fill: #111111;
     -fx-prompt-text-fill: #bbb;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.comment-field:focused {
+    -fx-border-color: #ff7a00;
+}
+.receipt-comment-field {
+    -fx-control-inner-background: #ffffff;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #111111;
+    -fx-font-size: 12px;
     -fx-background-radius: 8;
     -fx-border-color: #e0e0e0;
     -fx-border-radius: 8;
@@ -225,6 +244,7 @@
 .receipt-text { -fx-text-fill: #666666; }
 .receipt-line { -fx-background-color: #eeeeee; }
 .receipt-total-label { -fx-text-fill: #111111; }
+.receipt-ingredients { -fx-font-size: 11px; -fx-text-fill: #999999; -fx-font-weight: 600; -fx-padding: 0 0 6 0; }
 
 .settings-section { -fx-text-fill: #aaaaaa; }
 .settings-card {

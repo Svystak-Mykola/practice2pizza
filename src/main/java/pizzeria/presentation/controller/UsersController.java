@@ -46,7 +46,9 @@ public class UsersController {
     nameLabel.getStyleClass().add("settings-label");
     Label emailLabel = new Label(user.getEmail());
     emailLabel.getStyleClass().add("order-date");
-    info.getChildren().addAll(nameLabel, emailLabel);
+    Label phoneLabel = new Label(user.getPhone() == null ? "" : "📞 " + user.getPhone());
+    phoneLabel.getStyleClass().add("order-date");
+    info.getChildren().addAll(nameLabel, emailLabel, phoneLabel);
 
     Region spacer = new Region();
     HBox.setHgrow(spacer, Priority.ALWAYS);

@@ -65,7 +65,9 @@ final class DashboardCardFactory {
     if (items.isEmpty()) return "Склад замовлення порожній";
     StringBuilder out = new StringBuilder("Склад: ");
     for (OrderItem item : items) {
-      out.append(item.getSizeName()).append(" x").append(item.getQuantity()).append(" ");
+      String name = item.getPizzaName() != null ? item.getPizzaName() : "?";
+      String ingredients = item.getPizzaIngredients() != null ? " — " + item.getPizzaIngredients() : "";
+      out.append(name).append(" (").append(item.getSizeName()).append(" x").append(item.getQuantity()).append(")").append(ingredients).append("  ");
     }
     return out.toString();
   }

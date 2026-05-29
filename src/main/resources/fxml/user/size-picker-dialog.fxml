@@ -8,12 +8,12 @@
   styleClass="modal-overlay"
   onMouseClicked="#handleOverlayClick">
 
-  <VBox styleClass="modal-box" alignment="TOP_LEFT" spacing="24"
+  <VBox styleClass="modal-box" alignment="TOP_LEFT" spacing="18"
     onMouseClicked="#consumeClick">
 
-    <VBox spacing="6">
+    <VBox spacing="4">
       <Label fx:id="pizzaNameLabel" text="Піца" styleClass="modal-title"/>
-      <Label text="Оберіть розмір" styleClass="modal-subtitle"/>
+      <Label fx:id="pizzaIngredientsLabel" text="" styleClass="modal-ingredients" wrapText="true"/>
     </VBox>
 
     <HBox spacing="16" alignment="CENTER">

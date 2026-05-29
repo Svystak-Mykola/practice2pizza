@@ -7,6 +7,8 @@ public class OrderItem {
   private UUID id;
   private UUID orderId;
   private UUID pizzaId;
+  private String pizzaName;
+  private String pizzaIngredients;
   private PizzaSize size;
   private int quantity;
   private double priceAtTime;
@@ -16,9 +18,19 @@ public class OrderItem {
   }
 
   public OrderItem(UUID id, UUID orderId, UUID pizzaId, PizzaSize size, int quantity, double priceAtTime) {
+    this(id, orderId, pizzaId, null, null, size, quantity, priceAtTime);
+  }
+
+  public OrderItem(UUID id, UUID orderId, UUID pizzaId, String pizzaName, PizzaSize size, int quantity, double priceAtTime) {
+    this(id, orderId, pizzaId, pizzaName, null, size, quantity, priceAtTime);
+  }
+
+  public OrderItem(UUID id, UUID orderId, UUID pizzaId, String pizzaName, String pizzaIngredients, PizzaSize size, int quantity, double priceAtTime) {
     this.id = id;
     this.orderId = orderId;
     this.pizzaId = pizzaId;
+    this.pizzaName = pizzaName;
+    this.pizzaIngredients = pizzaIngredients;
     this.size = size;
     this.quantity = quantity;
     this.priceAtTime = priceAtTime;
@@ -30,6 +42,10 @@ public class OrderItem {
   public void setOrderId(UUID orderId) { this.orderId = orderId; }
   public UUID getPizzaId() { return pizzaId; }
   public void setPizzaId(UUID pizzaId) { this.pizzaId = pizzaId; }
+  public String getPizzaName() { return pizzaName; }
+  public void setPizzaName(String pizzaName) { this.pizzaName = pizzaName; }
+  public String getPizzaIngredients() { return pizzaIngredients; }
+  public void setPizzaIngredients(String pizzaIngredients) { this.pizzaIngredients = pizzaIngredients; }
   public PizzaSize getSize() { return size; }
   public void setSize(PizzaSize size) { this.size = size; }
   public int getQuantity() { return quantity; }

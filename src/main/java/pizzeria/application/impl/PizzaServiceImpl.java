@@ -3,33 +3,36 @@ package pizzeria.application.impl;
 import pizzeria.application.contract.PizzaService;
 import pizzeria.application.exception.ValidationException;
 import pizzeria.domain.entities.Category;
+import pizzeria.domain.entities.Ingredient;
 import pizzeria.domain.entities.Pizza;
 import pizzeria.infrastructure.persistence.contract.CategoryRepository;
+import pizzeria.infrastructure.persistence.contract.IngredientRepository;
 import pizzeria.infrastructure.persistence.contract.PizzaRepository;
 import pizzeria.infrastructure.persistence.impl.CategoryRepositoryImpl;
+import pizzeria.infrastructure.persistence.impl.IngredientRepositoryImpl;
 import pizzeria.infrastructure.persistence.impl.PizzaRepositoryImpl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class PizzaServiceImpl implements PizzaService {
 
   private final PizzaRepository pizzaRepository;
   private final CategoryRepository categoryRepository;
+  private final IngredientRepository ingredientRepository;
 
   public PizzaServiceImpl() {
     this.pizzaRepository = new PizzaRepositoryImpl();
     this.categoryRepository = new CategoryRepositoryImpl();
+    this.ingredientRepository = new IngredientRepositoryImpl();
   }
 
   @Override
   public void addNewPizza(String name, double price, UUID categoryId, String ingredients) {
-
     if (name == null || name.isBlank()) {
       throw new ValidationException("Назва піци не може бути порожньою");
     }
-
     if (price <= 0) {
       throw new ValidationException("Ціна має бути більше 0");
     }
@@ -45,9 +48,8 @@ public class PizzaServiceImpl implements PizzaService {
         categoryName,
         name,
         price,
-        ingredients != null ? ingredients : ""
+        parseIngredients(ingredients)
     );
-
     pizzaRepository.save(pizza);
   }
 
@@ -70,7 +72,7 @@ public class PizzaServiceImpl implements PizzaService {
         categoryName,
         name,
         price,
-        ingredients != null ? ingredients : ""
+        parseIngredients(ingredients)
     );
     pizzaRepository.save(pizza);
   }
@@ -88,5 +90,32 @@ public class PizzaServiceImpl implements PizzaService {
   @Override
   public List<Category> getAllCategories() {
     return categoryRepository.findAll();
+  }
+
+  @Override
+  public List<Ingredient> getAllIngredients() {
+    return ingredientRepository.findAll();
+  }
+
+  @Override
+  public Ingredient saveIngredient(String name) {
+    return ingredientRepository.save(name);
+  }
+
+  @Override
+  public void deleteIngredient(UUID id) {
+    ingredientRepository.delete(id);
+  }
+
+  private List<Ingredient> parseIngredients(String text) {
+    List<Ingredient> result = new ArrayList<>();
+    if (text == null || text.isBlank()) return result;
+    for (String part : text.split(",")) {
+      String trimmed = part.trim();
+      if (!trimmed.isEmpty()) {
+        result.add(ingredientRepository.save(trimmed));
+      }
+    }
+    return result;
   }
 }

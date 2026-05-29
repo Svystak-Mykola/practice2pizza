@@ -1,18 +1,21 @@
 package pizzeria.infrastructure.persistence.impl;
 
-import pizzeria.util.ConnectionPool;
 import pizzeria.domain.entities.Pizza;
+import pizzeria.infrastructure.persistence.contract.IngredientRepository;
 import pizzeria.infrastructure.persistence.contract.PizzaRepository;
+import pizzeria.util.ConnectionPool;
 
 import java.sql.*;
 import java.util.*;
 
 public class PizzaRepositoryImpl implements PizzaRepository {
 
+  private final IngredientRepository ingredientRepo = new IngredientRepositoryImpl();
+
   @Override
   public List<Pizza> findAll() {
     List<Pizza> pizzas = new ArrayList<>();
-    String sql = "SELECT p.id, p.category_id, p.name, p.price, p.ingredients, c.name as category_name " +
+    String sql = "SELECT p.id, p.category_id, p.name, p.price, c.name as category_name " +
         "FROM pizzas p LEFT JOIN categories c ON p.category_id = c.id";
 
     try (Connection conn = ConnectionPool.getConnection();
@@ -20,7 +23,9 @@ public class PizzaRepositoryImpl implements PizzaRepository {
         ResultSet rs = stmt.executeQuery(sql)) {
 
       while (rs.next()) {
-        pizzas.add(mapRow(rs));
+        Pizza pizza = mapRow(rs);
+        pizza.setIngredients(ingredientRepo.findByPizzaId(pizza.getId()));
+        pizzas.add(pizza);
       }
 
     } catch (SQLException e) {
@@ -33,13 +38,12 @@ public class PizzaRepositoryImpl implements PizzaRepository {
   @Override
   public void save(Pizza pizza) {
     String sql = """
-        INSERT INTO pizzas (id, category_id, name, price, ingredients)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO pizzas (id, category_id, name, price)
+        VALUES (?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
           category_id = excluded.category_id,
           name = excluded.name,
-          price = excluded.price,
-          ingredients = excluded.ingredients
+          price = excluded.price
         """;
 
     try (Connection conn = ConnectionPool.getConnection();
@@ -49,9 +53,10 @@ public class PizzaRepositoryImpl implements PizzaRepository {
       stmt.setString(2, pizza.getCategoryId().toString());
       stmt.setString(3, pizza.getName());
       stmt.setDouble(4, pizza.getPrice());
-      stmt.setString(5, pizza.getIngredients());
 
       stmt.executeUpdate();
+
+      ingredientRepo.setPizzaIngredients(pizza.getId(), pizza.getIngredients());
 
     } catch (SQLException e) {
       throw new RuntimeException("Error saving pizza", e);
@@ -60,7 +65,7 @@ public class PizzaRepositoryImpl implements PizzaRepository {
 
   @Override
   public Optional<Pizza> findById(UUID id) {
-    String sql = "SELECT p.id, p.category_id, p.name, p.price, p.ingredients, c.name as category_name " +
+    String sql = "SELECT p.id, p.category_id, p.name, p.price, c.name as category_name " +
         "FROM pizzas p LEFT JOIN categories c ON p.category_id = c.id WHERE p.id = ?";
 
     try (Connection conn = ConnectionPool.getConnection();
@@ -70,7 +75,9 @@ public class PizzaRepositoryImpl implements PizzaRepository {
       ResultSet rs = stmt.executeQuery();
 
       if (rs.next()) {
-        return Optional.of(mapRow(rs));
+        Pizza pizza = mapRow(rs);
+        pizza.setIngredients(ingredientRepo.findByPizzaId(pizza.getId()));
+        return Optional.of(pizza);
       }
 
     } catch (SQLException e) {
@@ -82,10 +89,8 @@ public class PizzaRepositoryImpl implements PizzaRepository {
 
   @Override
   public void delete(UUID id) {
-    String sql = "DELETE FROM pizzas WHERE id = ?";
-
     try (Connection conn = ConnectionPool.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM pizzas WHERE id = ?")) {
 
       stmt.setString(1, id.toString());
       stmt.executeUpdate();
@@ -96,22 +101,12 @@ public class PizzaRepositoryImpl implements PizzaRepository {
   }
 
   private Pizza mapRow(ResultSet rs) throws SQLException {
-    Pizza pizza = new Pizza(
+    return new Pizza(
         UUID.fromString(rs.getString("id")),
         UUID.fromString(rs.getString("category_id")),
         rs.getString("category_name"),
         rs.getString("name"),
-        rs.getDouble("price"),
-        readOptionalString(rs, "ingredients")
+        rs.getDouble("price")
     );
-    return pizza;
-  }
-
-  private String readOptionalString(ResultSet rs, String columnName) throws SQLException {
-    try {
-      return rs.getString(columnName);
-    } catch (SQLException ignored) {
-      return "";
-    }
   }
 }

@@ -197,7 +197,7 @@ public class UpdateMenuController {
       Pizza p = selectedPizza;
       editNameField.setText(p.getName());
       editPriceField.setText(String.valueOf(p.getPrice()));
-      editIngredientsField.setText(p.getIngredients());
+      editIngredientsField.setText(p.getIngredientsText());
       loadCategories(editCategoryChoice);
       for (Category cat : pizzaService.getAllCategories()) {
         if (cat.getId().equals(p.getCategoryId())) {

@@ -19,6 +19,7 @@
     <VBox spacing="10">
       <TextField fx:id="nameField" promptText="Ім'я" styleClass="text-field"/>
       <TextField fx:id="emailField" promptText="Email" styleClass="text-field"/>
+      <TextField fx:id="phoneField" promptText="Телефон (напр. +380501234567)" styleClass="text-field"/>
       <PasswordField fx:id="passwordField" promptText="Пароль (мін. 6 символів)" styleClass="text-field"/>
       <PasswordField fx:id="confirmPasswordField" promptText="Підтвердити пароль" styleClass="text-field"/>
     </VBox>

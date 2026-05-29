@@ -15,6 +15,7 @@ import java.util.UUID;
 public class SizePickerController {
 
   @FXML private Label pizzaNameLabel;
+  @FXML private Label pizzaIngredientsLabel;
   @FXML private Button btnS, btnM, btnL;
   @FXML private Label priceS, priceM, priceL;
   @FXML private Label selectedSizeLabel, selectedPriceLabel;
@@ -27,6 +28,7 @@ public class SizePickerController {
   public void setPizza(Pizza pizza) {
     this.pizza = pizza;
     pizzaNameLabel.setText(pizza.getName());
+    pizzaIngredientsLabel.setText(pizza.getIngredientsText());
     updatePriceLabels();
     updateSelection();
   }

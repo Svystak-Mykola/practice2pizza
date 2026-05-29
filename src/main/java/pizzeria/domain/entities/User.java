@@ -10,6 +10,7 @@ public class User {
   private String email;
   private String password;
   private String avatarPath;
+  private String phone;
   private Role role;
 
   public User() {
@@ -17,19 +18,24 @@ public class User {
   }
 
   public User(UUID id, String name, String email, String password) {
-    this(id, name, email, password, null, Role.USER);
+    this(id, name, email, password, null, null, Role.USER);
   }
 
   public User(UUID id, String name, String email, String password, String avatarPath) {
-    this(id, name, email, password, avatarPath, Role.USER);
+    this(id, name, email, password, avatarPath, null, Role.USER);
   }
 
   public User(UUID id, String name, String email, String password, String avatarPath, Role role) {
+    this(id, name, email, password, avatarPath, null, role);
+  }
+
+  public User(UUID id, String name, String email, String password, String avatarPath, String phone, Role role) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
     this.avatarPath = avatarPath;
+    this.phone = phone;
     this.role = role;
   }
 
@@ -43,6 +49,8 @@ public class User {
   public void setPassword(String password) { this.password = password; }
   public String getAvatarPath() { return avatarPath; }
   public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
+  public String getPhone() { return phone; }
+  public void setPhone(String phone) { this.phone = phone; }
   public Role getRole() { return role; }
   public void setRole(Role role) { this.role = role; }
 

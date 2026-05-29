@@ -32,7 +32,8 @@ public class CartController {
   @FXML private Label itemCountLabel;
   @FXML private Label cartSubtitle;
   @FXML private TextField tableField;
-  @FXML private TextField addressField;
+  @FXML private TextField streetField;
+  @FXML private TextField houseNumberField;
   @FXML private TextField phoneField;
   @FXML private javafx.scene.control.TextArea commentField;
   @FXML private ChoiceBox<String> orderTypeChoice;
@@ -197,15 +198,21 @@ public class CartController {
         return;
       }
     } else if (orderType == OrderType.DELIVERY) {
-      deliveryAddress = addressField.getText().trim();
+      String street = streetField.getText().trim();
+      String houseNumber = houseNumberField.getText().trim();
+      deliveryAddress = street + ", " + houseNumber;
       phone = phoneField.getText().trim();
       comment = commentField.getText().trim();
-      if (deliveryAddress.isBlank()) {
-        MainController.showToast("Вкажи адресу доставки", false);
+      if (street.isBlank()) {
+        MainController.showToast("Вкажи вулицю", false);
         return;
       }
-      if (!deliveryAddress.toLowerCase().startsWith("вул.")) {
-        MainController.showToast("Адреса має починатися з \"вул.\"", false);
+      if (!street.toLowerCase().startsWith("вул.")) {
+        MainController.showToast("Вулиця має починатися з \"вул.\"", false);
+        return;
+      }
+      if (houseNumber.isBlank()) {
+        MainController.showToast("Вкажи номер будинку", false);
         return;
       }
       if (phone.isBlank()) {
@@ -238,7 +245,8 @@ public class CartController {
 
     cart.clear();
     tableField.clear();
-    addressField.clear();
+    streetField.clear();
+    houseNumberField.clear();
     phoneField.clear();
     commentField.clear();
     refresh();

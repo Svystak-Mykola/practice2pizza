@@ -54,6 +54,11 @@ public class KitchenController {
       OrdersController.refreshOrders();
       CourierController.refreshDashboard();
       AdminController.refreshDashboard();
+      if (status == OrderStatus.IN_PROGRESS) {
+        MainController.showToast("Замовлення #" + order.getId().toString().substring(0, 8).toUpperCase() + " взято в роботу");
+      } else if (status == OrderStatus.READY) {
+        MainController.showToast("Замовлення #" + order.getId().toString().substring(0, 8).toUpperCase() + " готове");
+      }
     });
     return button;
   }

@@ -21,9 +21,11 @@ public class ProfileController {
   @FXML private ImageView avatarImage;
   @FXML private Label profileNameLabel;
   @FXML private Label profileEmailLabel;
+  @FXML private Label profilePhoneLabel;
   @FXML private Label profileRoleLabel;
   @FXML private TextField nameField;
   @FXML private TextField emailField;
+  @FXML private TextField phoneField;
   @FXML private PasswordField currentPassField;
   @FXML private PasswordField newPassField;
   @FXML private PasswordField confirmPassField;
@@ -39,9 +41,11 @@ public class ProfileController {
 
     profileNameLabel.setText(user.getName());
     profileEmailLabel.setText(user.getEmail());
+    profilePhoneLabel.setText(user.getPhone() == null ? "" : user.getPhone());
     profileRoleLabel.setText(user.getRole().displayName());
     nameField.setText(user.getName());
     emailField.setText(user.getEmail());
+    phoneField.setText(user.getPhone() == null ? "" : user.getPhone());
     setupAvatarView();
     loadAvatar(user.getAvatarPath());
   }
@@ -91,19 +95,26 @@ public class ProfileController {
   private void handleSaveInfo() {
     String name = nameField.getText().trim();
     String email = emailField.getText().trim();
+    String phone = phoneField.getText().trim();
     User user = UserSession.getCurrentUser();
 
     if (name.isEmpty() || email.isEmpty() || user == null) {
       showStatus(infoStatusLabel, "Заповни всі поля", false);
       return;
     }
+    if (!phone.isEmpty() && !phone.matches("^\\+?\\d{10,13}$")) {
+      showStatus(infoStatusLabel, "Телефон має містити 10-13 цифр", false);
+      return;
+    }
 
     user.setName(name);
     user.setEmail(email);
+    user.setPhone(phone.isEmpty() ? null : phone);
     userRepository.save(user);
 
     profileNameLabel.setText(name);
     profileEmailLabel.setText(email);
+    profilePhoneLabel.setText(phone);
     showStatus(infoStatusLabel, "✅  Дані збережено", true);
   }
 

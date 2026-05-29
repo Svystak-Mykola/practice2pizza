@@ -35,7 +35,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
   @Override
   public List<OrderItem> findByOrderId(UUID orderId) {
     List<OrderItem> items = new ArrayList<>();
-    String sql = "SELECT * FROM order_items WHERE order_id = ?";
+    String sql = "SELECT oi.*, p.name AS pizza_name, (SELECT STRING_AGG(i.name, ', ') FROM pizza_ingredients pi JOIN ingredients i ON i.id = pi.ingredient_id WHERE pi.pizza_id = p.id) AS pizza_ingredients FROM order_items oi JOIN pizzas p ON p.id = oi.pizza_id WHERE oi.order_id = ?";
 
     try (Connection conn = ConnectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -47,6 +47,8 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
               UUID.fromString(rs.getString("id")),
               UUID.fromString(rs.getString("order_id")),
               UUID.fromString(rs.getString("pizza_id")),
+              rs.getString("pizza_name"),
+              rs.getString("pizza_ingredients"),
               PizzaSize.fromString(rs.getString("size")),
               rs.getInt("quantity"),
               rs.getDouble("price_at_time")

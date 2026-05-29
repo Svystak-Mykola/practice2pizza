@@ -26,6 +26,7 @@
         <Label text="Натисни щоб змінити" styleClass="avatar-hint"/>
         <Label fx:id="profileNameLabel" text="Ім'я" styleClass="profile-name"/>
         <Label fx:id="profileEmailLabel" text="email@email.com" styleClass="profile-email"/>
+        <Label fx:id="profilePhoneLabel" text="" styleClass="profile-email"/>
         <Label fx:id="profileRoleLabel" text="" styleClass="profile-role"/>
       </VBox>
 
@@ -44,6 +45,14 @@
               <TextField fx:id="emailField" styleClass="profile-field"/>
             </VBox>
           </HBox>
+          <GridPane hgap="20" vgap="6">
+            <columnConstraints>
+              <ColumnConstraints percentWidth="50"/>
+              <ColumnConstraints percentWidth="50"/>
+            </columnConstraints>
+            <Label text="ТЕЛЕФОН" styleClass="profile-field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="phoneField" styleClass="profile-field" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+          </GridPane>
 
           <Button text="Зберегти зміни" onAction="#handleSaveInfo"
             styleClass="save-btn"/>

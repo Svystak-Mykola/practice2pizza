@@ -7,7 +7,7 @@ import pizzeria.application.impl.AuthServiceImpl;
 import java.util.regex.Pattern;
 
 public class RegisterController {
-  @FXML private TextField nameField, emailField;
+  @FXML private TextField nameField, emailField, phoneField;
   @FXML private PasswordField passwordField, confirmPasswordField;
   @FXML private Label statusLabel;
 
@@ -19,6 +19,7 @@ public class RegisterController {
   private void handleRegister() {
     String name = nameField.getText().trim();
     String email = emailField.getText().trim();
+    String phone = phoneField.getText().trim();
     String pass = passwordField.getText();
     String confirmPass = confirmPasswordField.getText();
 
@@ -28,6 +29,10 @@ public class RegisterController {
     }
     if (!EMAIL_REGEX.matcher(email).matches()) {
       showStatus("Введи коректний email.", false);
+      return;
+    }
+    if (!phone.isEmpty() && !phone.matches("^\\+?\\d{10,13}$")) {
+      showStatus("Телефон має містити 10-13 цифр.", false);
       return;
     }
     if (pass.length() < 6) {
@@ -40,7 +45,7 @@ public class RegisterController {
     }
 
     try {
-      authService.register(name, email, pass);
+      authService.register(name, email, pass, phone.isEmpty() ? null : phone);
       showStatus("Акаунт створено. Можна входити.", true);
     } catch (Exception e) {
       showStatus(e.getMessage(), false);

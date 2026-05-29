@@ -150,8 +150,7 @@ public class MenuController {
     priceLabel.getStyleClass().add("pizza-card-price");
     priceLabel.setStyle("-fx-padding: 6 0 0 0;");
 
-    Label ingredientsLabel = new Label("Інгредієнти: " +
-        (pizza.getIngredients() == null ? "" : pizza.getIngredients()));
+    Label ingredientsLabel = new Label("Інгредієнти: " + pizza.getIngredientsText());
     ingredientsLabel.getStyleClass().add("pizza-card-ingredients");
     ingredientsLabel.setWrapText(true);
     ingredientsLabel.setVisible(false);
@@ -163,6 +162,7 @@ public class MenuController {
       boolean expanded = !ingredientsLabel.isVisible();
       ingredientsLabel.setVisible(expanded);
       ingredientsLabel.setManaged(expanded);
+      moreBtn.setText(expanded ? "Менше" : "Більше");
       card.getStyleClass().remove("pizza-card-expanded");
       if (expanded) {
         card.getStyleClass().add("pizza-card-expanded");
