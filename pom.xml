@@ -133,7 +133,7 @@
                 <argument>--win-shortcut</argument>
                 <argument>--win-menu</argument>
                 <argument>--vendor</argument><argument>Svystak Mykola</argument>
-                <argument>--app-version</argument><argument>1.0.0</argument>
+                <argument>--app-version</argument><argument>1.1.0</argument>
                 <argument>--java-options</argument><argument>-Dfile.encoding=UTF-8</argument>
                 <argument>--win-console</argument>
               </arguments>

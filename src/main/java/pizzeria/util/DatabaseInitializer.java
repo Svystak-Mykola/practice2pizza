@@ -9,7 +9,7 @@ public class DatabaseInitializer {
   public static DataSource createDataSource() {
     PGSimpleDataSource ds = new PGSimpleDataSource();
     ds.setUrl(System.getenv().getOrDefault(
-        "URPIZZA_DB_URL", "jdbc:postgresql://localhost:5432/pizzeria_db?TimeZone=Europe/Kyiv"));
+        "URPIZZA_DB_URL", "jdbc:postgresql://localhost:5434/pizzeria_db?TimeZone=Europe/Kyiv"));
     ds.setUser(System.getenv().getOrDefault("URPIZZA_DB_USER", "postgres"));
     ds.setPassword(System.getenv().getOrDefault("URPIZZA_DB_PASSWORD", "H27735311"));
 
